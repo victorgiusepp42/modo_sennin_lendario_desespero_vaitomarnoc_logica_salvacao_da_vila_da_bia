@@ -1,0 +1,25 @@
+# Material didático — fonte IDL
+$schema: ../schemas/material.idl.schema.json
+
+meta:
+  id: modo_sennin_lendario_desespero_vaitomarnoc_logica_salvacao_da_vila_da_bia
+  title: Modo Sennin Lendário — Lógica de Salvação da Vila da Bia
+  version: "0.1.0"
+  language: pt-BR
+  description: Esqueleto inicial. Conteúdo real virá após o prompt e arquivos de contexto.
+
+structure:
+  - id: intro
+    title: Introdução
+    blocks:
+      - type: heading
+        level: 1
+        text: Modo Sennin Lendário
+      - type: paragraph
+        text: Placeholder do material. O arquivo final terá o mesmo nome do projeto.
+      - type: callout
+        variant: info
+        title: Artefato final
+        text: >-
+          Após o build, abra dist/modo_sennin_lendario_desespero_vaitomarnoc_logica_salvacao_da_vila_da_bia.html
+          em qualquer dispositivo (iOS, Android ou desktop).
