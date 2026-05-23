@@ -1,0 +1,5 @@
+parts:
+  - id: material-principal
+    kind: generated
+    source: content/generated/material-principal.html
+    title: Lógica para IA — Guia de remediação

@@ -2,6 +2,11 @@ node_modules/
 dist/
 .output/
 *.log
+
+# PDFs grandes — mantidos localmente, copiados no build
+content/appendices/*.pdf
+context/somente-leitura/*.pdf
+*.log
 .DS_Store
 Thumbs.db
 .env

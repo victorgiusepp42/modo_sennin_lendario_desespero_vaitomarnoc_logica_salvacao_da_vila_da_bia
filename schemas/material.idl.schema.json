@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://local/material-didatico/material.idl.schema.json",
+  "$id": "https://local/modo_sennin_lendario_desespero_vaitomarnoc_logica_salvacao_da_vila_da_bia/material.idl.schema.json",
   "title": "Material Didático IDL",
   "type": "object",
   "required": ["meta", "structure"],
@@ -12,7 +12,7 @@
       "required": ["id", "title", "version", "language"],
       "additionalProperties": false,
       "properties": {
-        "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+        "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9_-]*$" },
         "title": { "type": "string", "minLength": 1 },
         "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+(-[\\w.]+)?$" },
         "language": { "type": "string", "minLength": 2 },
@@ -31,7 +31,7 @@
       "required": ["id", "title", "blocks"],
       "additionalProperties": false,
       "properties": {
-        "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+        "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9_-]*$" },
         "title": { "type": "string", "minLength": 1 },
         "blocks": {
           "type": "array",
@@ -42,6 +42,7 @@
     },
     "block": {
       "oneOf": [
+        { "$ref": "#/$defs/hero" },
         { "$ref": "#/$defs/heading" },
         { "$ref": "#/$defs/paragraph" },
         { "$ref": "#/$defs/list" },
@@ -50,6 +51,18 @@
         { "$ref": "#/$defs/code" },
         { "$ref": "#/$defs/divider" }
       ]
+    },
+    "hero": {
+      "type": "object",
+      "required": ["type", "title"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "const": "hero" },
+        "mascot": { "type": "boolean", "default": true },
+        "eyebrow": { "type": "string" },
+        "title": { "type": "string", "minLength": 1 },
+        "subtitle": { "type": "string" }
+      }
     },
     "heading": {
       "type": "object",

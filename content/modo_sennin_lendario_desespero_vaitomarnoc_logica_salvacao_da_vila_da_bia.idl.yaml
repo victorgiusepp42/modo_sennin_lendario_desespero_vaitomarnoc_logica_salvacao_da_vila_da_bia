@@ -1,25 +1,21 @@
-# Material didático — fonte IDL
+# Material didático — fonte IDL (capa)
 $schema: ../schemas/material.idl.schema.json
 
 meta:
   id: modo_sennin_lendario_desespero_vaitomarnoc_logica_salvacao_da_vila_da_bia
-  title: Modo Sennin Lendário — Lógica de Salvação da Vila da Bia
+  title: Lógica para IA — Guia de Sobrevivência da Segunda Chance
   version: "0.1.0"
   language: pt-BR
-  description: Esqueleto inicial. Conteúdo real virá após o prompt e arquivos de contexto.
+  description: Remediação para alunos da UFCAT/IMTec — segunda oportunidade na prova de Lógica.
 
 structure:
-  - id: intro
-    title: Introdução
+  - id: capa
+    title: Capa
     blocks:
-      - type: heading
-        level: 1
-        text: Modo Sennin Lendário
-      - type: paragraph
-        text: Placeholder do material. O arquivo final terá o mesmo nome do projeto.
-      - type: callout
-        variant: info
-        title: Artefato final
-        text: >-
-          Após o build, abra dist/modo_sennin_lendario_desespero_vaitomarnoc_logica_salvacao_da_vila_da_bia.html
-          em qualquer dispositivo (iOS, Android ou desktop).
+      - type: hero
+        mascot: true
+        eyebrow: Bacharelado em Inteligência Artificial · UFCAT
+        title: Lógica para IA — Guia de Sobrevivência da Segunda Chance
+        subtitle: >-
+          Se a primeira prova não rolou, tudo bem. Este material destrava os pontos
+          que derrubam a maioria — passo a passo.

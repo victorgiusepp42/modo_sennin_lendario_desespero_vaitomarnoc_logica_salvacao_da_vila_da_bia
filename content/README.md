@@ -16,4 +16,4 @@ npm run validate
 
 ## Exemplo
 
-Ver `example/modulo-exemplo.idl.yaml`.
+Arquivo principal: `modo_sennin_lendario_desespero_vaitomarnoc_logica_salvacao_da_vila_da_bia.idl.yaml`.

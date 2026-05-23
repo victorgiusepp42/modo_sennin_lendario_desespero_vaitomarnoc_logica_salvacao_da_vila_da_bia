@@ -7,10 +7,14 @@
   "scripts": {
     "validate": "tsx src/cli.ts validate",
     "build": "tsx src/cli.ts build",
+    "pdf": "tsx src/cli.ts pdf",
+    "preview": "tsx src/preview.ts",
+    "start": "npm run build && npm run preview",
     "dev": "tsx src/cli.ts build --watch"
   },
   "devDependencies": {
     "@types/node": "^22.15.0",
+    "puppeteer": "^24.8.0",
     "tsx": "^4.19.0",
     "typescript": "^5.8.0"
   },

@@ -3,6 +3,7 @@ import { fileURLToPath } from "node:url";
 import { compileHtmlBundle } from "./converters/html-bundle/index.js";
 import { findIdlFiles, parseIdlFile } from "./idl/parse.js";
 import { validateDocument } from "./idl/validate.js";
+import { generatePdfFromHtml } from "./pdf.js";
 
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), "..");
 const contentDir = path.join(root, "content");
@@ -34,8 +35,24 @@ async function cmdBuild(): Promise<number> {
   const files = await findIdlFiles(contentDir);
   for (const file of files) {
     const doc = await parseIdlFile(file);
-    const result = await compileHtmlBundle(doc, distDir);
+    const result = await compileHtmlBundle(doc, distDir, root);
     console.log(`Built ${result.format} → ${result.outputPath}`);
+  }
+  return 0;
+}
+
+async function cmdPdf(): Promise<number> {
+  const code = await cmdBuild();
+  if (code !== 0) return code;
+
+  const files = await findIdlFiles(contentDir);
+  for (const file of files) {
+    const doc = await parseIdlFile(file);
+    const htmlPath = path.join(distDir, `${doc.meta.id}.html`);
+    const pdfPath = path.join(distDir, `${doc.meta.id}.pdf`);
+    console.log(`PDF  ${path.basename(htmlPath)} → ${path.basename(pdfPath)}`);
+    await generatePdfFromHtml(htmlPath, pdfPath);
+    console.log(`OK   ${pdfPath}`);
   }
   return 0;
 }
@@ -48,7 +65,9 @@ try {
       ? await cmdValidate()
       : command === "build"
         ? await cmdBuild()
-        : (console.error("Uso: validate | build"), 1);
+        : command === "pdf"
+          ? await cmdPdf()
+          : (console.error("Uso: validate | build | pdf"), 1);
   process.exit(exit);
 } catch (err) {
   console.error(err instanceof Error ? err.message : err);

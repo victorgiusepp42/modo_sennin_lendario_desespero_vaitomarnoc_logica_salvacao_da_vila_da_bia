@@ -1,4 +1,6 @@
-# Material Didático — Pipeline IDL → Entrega
+# modo_sennin_lendario_desespero_vaitomarnoc_logica_salvacao_da_vila_da_bia
+
+Pipeline IDL → artefato final **`modo_sennin_lendario_desespero_vaitomarnoc_logica_salvacao_da_vila_da_bia.html`** (multiplataforma).
 
 Projeto para construir material didático em um **formato intermediário** (IDL) e, depois, gerar um **artefato final leve** que abra bem em iOS, Android e desktop.
 

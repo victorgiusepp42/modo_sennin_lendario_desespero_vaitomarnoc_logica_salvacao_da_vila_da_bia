@@ -28,6 +28,7 @@ structure:
 
 | type | Campos principais |
 |------|-------------------|
+| `hero` | `mascot?`, `eyebrow?`, `title`, `subtitle?` — capa com mascote no HTML final |
 | `heading` | `level` (1–6), `text` |
 | `paragraph` | `text` |
 | `list` | `ordered` (bool), `items` (string[]) |

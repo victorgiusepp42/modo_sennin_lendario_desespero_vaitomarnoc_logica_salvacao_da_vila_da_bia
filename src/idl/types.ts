@@ -1,4 +1,11 @@
 export type Block =
+  | {
+      type: "hero";
+      mascot?: boolean;
+      eyebrow?: string;
+      title: string;
+      subtitle?: string;
+    }
   | { type: "heading"; level: number; text: string }
   | { type: "paragraph"; text: string }
   | { type: "list"; ordered?: boolean; items: string[] }

@@ -1,20 +1,23 @@
 # Contexto do projeto
 
-Coloque aqui os arquivos que definem o material didático **antes** da conversão:
+## Somente leitura (NÃO entram no arquivo final)
 
-- Briefing, objetivos de aprendizagem, público-alvo
-- Roteiros, slides exportados, PDFs de referência
-- Imagens, tabelas, glossários
-- Qualquer anexo que o agente deva usar ao montar o IDL em `content/`
+Usados pelo agente ao **gerar** o guia principal (`content/generated/material-principal.html`).
 
-**Não** versione arquivos grandes ou sensíveis se não forem necessários — use `.gitignore` local ou subpastas ignoradas.
+| Arquivo | Origem | Uso |
+|---------|--------|-----|
+| `somente-leitura/avaliacao1-prova-anterior.pdf` | AVALIACAO1.pdf | Section 7 — prova explicada questão a questão |
+| `somente-leitura/gersting-fundamentos-matematicos.pdf` | Livro Gersting | Citações de página, conceitos, tabelas |
 
-## Sugestão de organização
+## Anexos no arquivo final (consulta)
 
-```
-context/
-  briefing.md
-  publico-alvo.md
-  referencias/
-  assets/
-```
+Copiados para `dist/` no build. Ordem em `content/assembly.yaml`.
+
+| Arquivo | Origem | No HTML |
+|---------|--------|---------|
+| `../appendices/lista-exercicios-livro.pdf` | Lista_Exercicios_Livro.pdf | Embutido (~165 KB) |
+| `../appendices/logica-completo.pdf` | Logica_Completo.pdf | Link + viewer (~137 MB, mesma pasta) |
+
+## Prompt
+
+`prompts/inicial.md` — especificação pedagógica completa (copiada de `prompt_logica_ia.md`).

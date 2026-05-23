@@ -1,6 +1,10 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
-import type { Block, IdlDocument, Section } from "../../idl/types.js";
+import type { IdlDocument } from "../../idl/types.js";
+import { loadMascotDataUri } from "./assets.js";
+import { renderAssemblyParts } from "./assembly.js";
+import { HERO_TITLE_FIT_SCRIPT } from "./hero-title-fit.js";
+import { getThemeCss } from "./theme.js";
 
 export type BuildResult = {
   outputPath: string;
@@ -15,73 +19,70 @@ function escapeHtml(text: string): string {
     .replace(/"/g, "&quot;");
 }
 
-function renderBlock(block: Block): string {
-  switch (block.type) {
-    case "heading": {
-      const tag = `h${block.level}`;
-      return `<${tag}>${escapeHtml(block.text)}</${tag}>`;
-    }
-    case "paragraph":
-      return `<p>${escapeHtml(block.text)}</p>`;
-    case "list": {
-      const tag = block.ordered ? "ol" : "ul";
-      const items = block.items.map((i) => `<li>${escapeHtml(i)}</li>`).join("");
-      return `<${tag}>${items}</${tag}>`;
-    }
-    case "callout":
-      return `<aside class="callout callout-${block.variant}">${
-        block.title ? `<strong>${escapeHtml(block.title)}</strong> ` : ""
-      }${escapeHtml(block.text)}</aside>`;
-    case "image":
-      return `<figure><img src="${escapeHtml(block.src)}" alt="${escapeHtml(block.alt)}"/>${
-        block.caption ? `<figcaption>${escapeHtml(block.caption)}</figcaption>` : ""
-      }</figure>`;
-    case "code":
-      return `<pre><code>${escapeHtml(block.text)}</code></pre>`;
-    case "divider":
-      return "<hr/>";
-    default:
-      return "";
-  }
+const MASCOT_MARKER = "<!-- MASCOTE -->";
+
+function renderMascotImg(mascotSrc: string | null): string {
+  if (!mascotSrc) return "";
+  return `<img class="hero-mascot__img" src="${mascotSrc}" alt="Mascote do curso BIA UFCAT — Inteligência Artificial" width="1024" height="1024" decoding="async" fetchpriority="high"/>`;
 }
 
-function renderSection(section: Section): string {
-  const body = section.blocks.map(renderBlock).join("\n");
-  return `<section id="${escapeHtml(section.id)}"><h2>${escapeHtml(section.title)}</h2>${body}</section>`;
+function injectMascot(html: string, mascotSrc: string | null): string {
+  const img = renderMascotImg(mascotSrc);
+  if (!img) return html.replace(MASCOT_MARKER, "");
+  return html.includes(MASCOT_MARKER)
+    ? html.replace(MASCOT_MARKER, img)
+    : html;
 }
 
-export function renderHtmlBundle(doc: IdlDocument): string {
-  const sections = doc.structure.map(renderSection).join("\n");
+function renderChrome(): string {
+  return `<div class="orbs" aria-hidden="true">
+  <div class="orb orb--1"></div>
+  <div class="orb orb--2"></div>
+  <div class="orb orb--3"></div>
+  <div class="orb orb--4"></div>
+</div>`;
+}
+
+export function renderHtmlBundle(
+  doc: IdlDocument,
+  assemblyHtml: string,
+  mascotDataUri: string | null
+): string {
+  const bodyHtml = injectMascot(assemblyHtml, mascotDataUri);
   return `<!DOCTYPE html>
 <html lang="${escapeHtml(doc.meta.language)}">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="theme-color" content="#080808"/>
+  <meta name="color-scheme" content="dark"/>
   <title>${escapeHtml(doc.meta.title)}</title>
-  <style>
-    :root { font-family: system-ui, sans-serif; line-height: 1.5; max-width: 42rem; margin: auto; padding: 1rem; }
-    .callout { padding: 0.75rem 1rem; border-radius: 0.5rem; margin: 1rem 0; }
-    .callout-info { background: #e8f4fc; }
-    .callout-warning { background: #fff3cd; }
-    .callout-tip { background: #e8f5e9; }
-    img { max-width: 100%; height: auto; }
-    pre { overflow-x: auto; background: #f4f4f4; padding: 0.75rem; }
-  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700&family=Bebas+Neue&family=Inter:wght@400;500;600&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet"/>
+  <style>${getThemeCss()}</style>
 </head>
 <body>
-  <header><h1>${escapeHtml(doc.meta.title)}</h1></header>
-  <main>${sections}</main>
+  ${renderChrome()}
+  <div class="page">
+    <main class="document-body">${bodyHtml}</main>
+    <footer class="site-footer">UFCAT · IMTec · Lógica para Inteligência Artificial · Material de remediação</footer>
+  </div>
+  <script>${HERO_TITLE_FIT_SCRIPT}</script>
 </body>
 </html>`;
 }
 
 export async function compileHtmlBundle(
   doc: IdlDocument,
-  distDir: string
+  distDir: string,
+  projectRoot: string
 ): Promise<BuildResult> {
   await mkdir(distDir, { recursive: true });
+  const assemblyHtml = await renderAssemblyParts(projectRoot, distDir);
+  const mascotDataUri = await loadMascotDataUri(projectRoot);
   const fileName = `${doc.meta.id}.html`;
   const outputPath = path.join(distDir, fileName);
-  await writeFile(outputPath, renderHtmlBundle(doc), "utf8");
+  await writeFile(outputPath, renderHtmlBundle(doc, assemblyHtml, mascotDataUri), "utf8");
   return { outputPath, format: "html-bundle" };
 }

@@ -6,14 +6,20 @@ Construir material didático a partir de contexto fornecido pelo usuário, usand
 
 ## Antes de editar conteúdo
 
-1. Ler `context/` e `prompts/inicial.md` (quando existirem).
-2. Ler `docs/formato-intermediario.md` e `schemas/material.idl.schema.json`.
+1. Ler `prompts/inicial.md` e `docs/estrutura-arquivo-final.md`.
+2. Ler `context/somente-leitura/` (prova + Gersting) — **não** copiar para o final.
+3. Conteúdo principal → `content/generated/material-principal.html` (Seções 0–8 do prompt).
+4. Anexos finais → `content/assembly.yaml` (lista + logica completo).
+5. Ler `docs/estetica.md`, `docs/formato-intermediario.md`.
 3. Não inventar estrutura fora do schema sem alinhar com o usuário.
 
 ## Convenções
 
 - Material fonte: `content/**/*.idl.yaml`
-- Exemplo mínimo: `content/example/modulo-exemplo.idl.yaml`
+- Fonte principal: `content/modo_sennin_lendario_desespero_vaitomarnoc_logica_salvacao_da_vila_da_bia.idl.yaml`
+- Mascote (obrigatório no hero): `content/assets/mascote-bia-ufcat.png`
+- Artefato final: `dist/modo_sennin_lendario_desespero_vaitomarnoc_logica_salvacao_da_vila_da_bia.html`
+- Primeira dobra: bloco IDL `type: hero` com `mascot: true`
 - Saída de build: `dist/` (gitignored)
 - Validar antes de build: `npm run validate`
 

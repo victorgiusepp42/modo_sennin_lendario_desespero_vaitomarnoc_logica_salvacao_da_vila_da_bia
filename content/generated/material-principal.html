@@ -1,0 +1,798 @@
+<article class="material-principal" lang="pt-BR">
+<!-- Section 0 - Hero / Mapa -->
+<section id="sec-0">
+  <p class="sec-label">Seção 0</p>
+  <h1 class="hero-title">
+    <span class="hero-title__line hero-title__line--primary">Lógica para Inteligência Artificial</span>
+    <span class="hero-title__line hero-title__line--secondary">Guia de Sobrevivência da Segunda Chance</span>
+  </h1>
+
+  <div class="sec-0-lead">
+    <figure class="hero-mascot" id="mascote-curso"><!-- MASCOTE --></figure>
+    <div class="sec-0-lead__text">
+      <p>Se você está aqui, é porque a primeira prova não rolou. Tudo bem. Este material foi feito para destravar exatamente os pontos que derrubam a maioria. Vamos passo a passo.</p>
+      <p>Foco: sair da intuição do dia a dia, formalizar com segurança e decidir a técnica certa para cada tipo de questão.</p>
+    </div>
+  </div>
+
+  <article class="concept">
+    <h3>Mapa de Progressão</h3>
+    <p>Você vai caminhar de proposições e tabelas-verdade até argumentos com quantificadores e conceitos meta-lógicos da prova.</p>
+    <nav class="mapa-progressao" aria-label="Mapa das seções">
+      <a href="#sec-0">0 — Mapa e notação</a>
+      <a href="#sec-1">1 — Proposições e tabelas-verdade</a>
+      <a href="#sec-2">2 — Equivalências lógicas</a>
+      <a href="#sec-3">3 — Argumentos proposicionais</a>
+      <a href="#sec-4">4 — Quantificadores</a>
+      <a href="#sec-5">5 — Provas em predicados</a>
+      <a href="#sec-6">6 — Sintaxe e semântica</a>
+      <a href="#sec-7">7 — Prova anterior explicada</a>
+      <a href="#sec-8">8 — Cheat sheet</a>
+    </nav>
+  </article>
+
+  <article class="concept">
+    <h3>Tabela de Notação</h3>
+    <table>
+      <thead><tr><th>Símbolo</th><th>Leitura</th><th>Uso</th></tr></thead>
+      <tbody>
+        <tr><td>′</td><td>negação</td><td>A′ significa “não A”</td></tr>
+        <tr><td>∧</td><td>conjunção (e)</td><td>A ∧ B: ambos V</td></tr>
+        <tr><td>∨</td><td>disjunção (ou)</td><td>A ∨ B: pelo menos um V</td></tr>
+        <tr><td>→</td><td>condicional (se… então)</td><td>A → B: só F quando A=V e B=F</td></tr>
+        <tr><td>↔</td><td>bicondicional</td><td>A ↔ B: mesmos valores lógicos</td></tr>
+        <tr><td>⇔</td><td>equivalência lógica</td><td>metalinguagem em cadeias de prova</td></tr>
+        <tr><td>⊢</td><td>deduz / conclui</td><td>premissas ⊢ conclusão</td></tr>
+        <tr><td>∀</td><td>para todo</td><td>quantificador universal</td></tr>
+        <tr><td>∃</td><td>existe</td><td>quantificador existencial</td></tr>
+        <tr><td>V / F</td><td>verdadeiro / falso</td><td>valores em tabela-verdade</td></tr>
+        <tr><td>0 / 1</td><td>falso / verdadeiro</td><td>constantes em equivalências</td></tr>
+      </tbody>
+    </table>
+    <p class="ref">📖 Livro: cap. 1.1–1.4 (Gersting) | 📝 Pratique na lista: blocos introdutórios de notação</p>
+  </article>
+
+  <p><strong>Tempo estimado de leitura guiada:</strong> 3h30 a 4h30, incluindo pausas para reler exemplos resolvidos e comparar com a prova explicada na Seção 7.</p>
+  <p><strong>Aviso sobre exercícios:</strong> a lista de exercícios vem em documento separado (<em>Lista_Exercicios_Livro.docx</em>). Este material sugere onde praticar cada conceito, mas não contém enunciados da lista nem mini-quizzes.</p>
+</section>
+
+<!-- Section 1 - Gersting 1.1 -->
+<section id="sec-1">
+  <p class="sec-label">Seção 1</p>
+  <h2 class="sec-title">Proposições, <span class="hi">conectivos</span> e tabelas-verdade</h2>
+
+  <article class="concept">
+    <h3>1.1 O que é proposição?</h3>
+    <p>Proposição é uma afirmação que pode ser classificada como verdadeira (V) ou falsa (F), mas não ambas ao mesmo tempo.</p>
+    <p>Exemplos: “Chove em Catalão” (V ou F, dependendo do dia). “2 + 2 = 5” (F). “Todo número par é divisível por 2” (V).</p>
+    <p>Não são proposições: perguntas (“Chove?”), ordens (“Feche a porta”), exclamações (“Uau!”) e frases cujo valor depende de contexto não fixado (“Este curso é difícil” sem definir quem fala).</p>
+    <p class="ref">📖 Livro: pp. 1–4 | 📝 Pratique na lista: Ex. 1.1.1</p>
+  </article>
+
+  <article class="concept">
+    <h3>1.2 Os cinco conectivos</h3>
+    <p>Conectivos combinam proposições simples em fórmulas bem-formadas (fbfs). Antes da tabela, pense no cotidiano:</p>
+    <table>
+      <thead><tr><th>Símbolo</th><th>Nome</th><th>Português típico</th><th>Quando é V</th></tr></thead>
+      <tbody>
+        <tr><td>′</td><td>Negação</td><td>não, não é verdade que</td><td>Quando a proposição base é F</td></tr>
+        <tr><td>∧</td><td>Conjunção</td><td>e, mas também</td><td>Ambas V</td></tr>
+        <tr><td>∨</td><td>Disjunção</td><td>ou (inclusivo)</td><td>Pelo menos uma V</td></tr>
+        <tr><td>→</td><td>Condicional</td><td>se… então</td><td>Exceto A=V e B=F</td></tr>
+        <tr><td>↔</td><td>Bicondicional</td><td>se e somente se</td><td>A e B com mesmo valor</td></tr>
+      </tbody>
+    </table>
+    <p>Intuição do condicional: “Se chover, levo guarda-chuva.” Só falha (F) quando chove e eu não levo. Se não chove, a promessa não é quebrada — o condicional fica V.</p>
+    <p class="ref">📖 Livro: pp. 4–8 | 📝 Pratique na lista: Ex. 1.1.2 a 1.1.4</p>
+  </article>
+
+  <article class="concept">
+    <h3>1.3 Receita de tabela-verdade em 4 passos</h3>
+    <ol class="receita">
+      <li>Conte quantas letras proposicionais existem (n letras → 2ⁿ linhas).</li>
+      <li>Preencha as colunas das letras na ordem binária (VV, VF, FV, FF para n=2).</li>
+      <li>Calcule subexpressões da mais interna para a mais externa.</li>
+      <li>A coluna final V em todas as linhas = tautologia; F em todas = contradição; misto = contingência.</li>
+    </ol>
+    <p class="ref">📖 Livro: pp. 8–12 | 📝 Pratique na lista: Ex. 1.1.6</p>
+  </article>
+
+  <div class="worked-example">
+    <h4>Exemplo resolvido: tabela-verdade de (A ∧ B)′ ↔ A′ ∨ B′</h4>
+    <p class="setup">Esta fbf verifica a lei de De Morgan por bicondicional — exatamente o padrão da Q1.b da prova.</p>
+    <table class="truth-table">
+      <thead>
+        <tr><th>A</th><th>B</th><th>A∧B</th><th>(A∧B)′</th><th>A′</th><th>B′</th><th>A′∨B′</th><th>(A∧B)′↔(A′∨B′)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>V</td><td>V</td><td>V</td><td>F</td><td>F</td><td>F</td><td>F</td><td>V</td></tr>
+        <tr><td>V</td><td>F</td><td>F</td><td>V</td><td>F</td><td>V</td><td>V</td><td>V</td></tr>
+        <tr><td>F</td><td>V</td><td>F</td><td>V</td><td>V</td><td>F</td><td>V</td><td>V</td></tr>
+        <tr><td>F</td><td>F</td><td>F</td><td>V</td><td>V</td><td>V</td><td>V</td><td>V</td></tr>
+      </tbody>
+    </table>
+    <ol class="steps">
+      <li><span class="step">Passo 1:</span> Colunas A e B com 4 combinações. <span class="thinking">💭 Duas letras → 2² = 4 linhas.</span></li>
+      <li><span class="step">Passo 2:</span> Calcule A∧B antes de negar. <span class="thinking">💭 Conjunção só V quando ambas V.</span></li>
+      <li><span class="step">Passo 3:</span> (A∧B)′ inverte cada valor de A∧B. <span class="thinking">💭 Negação troca V↔F.</span></li>
+      <li><span class="step">Passo 4:</span> A′∨B′ usa De Morgan do lado direito. <span class="thinking">💭 Deve coincidir linha a linha com (A∧B)′.</span></li>
+      <li><span class="step">Passo 5:</span> Coluna final toda V → tautologia. <span class="thinking">💭 Confirma (A∧B)′ ⇔ A′∨B′.</span></li>
+    </ol>
+    <p class="closure">Conclusão: a fbf é tautologia — De Morgan está correto.</p>
+  </div>
+
+  <article class="concept">
+    <h3>1.4 Tradução português → fbf</h3>
+    <p>Nomeie cada átomo positivamente antes de negar. Ex.: N = “as notas foram pagas”, L = “há atraso na entrega”, C = “o cliente ficará feliz”.</p>
+    <p>Padrões essenciais: “A e B” → A∧B; “A ou B” → A∨B; “se A então B” → A→B; “A se e somente se B” → A↔B; “não A” → A′.</p>
+    <aside class="pegadinha">⚠️ <strong>Pegadinha:</strong> “B só se A” significa B→A (não A→B). “Se A então B” é A→B. Confundir “se” com “só se” derruba traduções inteiras — veja Ex. 1.1.5.c do livro.</aside>
+    <p class="ref">📖 Livro: pp. 12–16 | 📝 Pratique na lista: Ex. 1.1.5, 1.1.7</p>
+  </article>
+
+  <article class="concept">
+    <h3>1.5 Negação correta — leis de De Morgan</h3>
+    <p>(A ∨ B)′ ⇔ A′ ∧ B′ — negar “ou” vira “e” com cada parte negada.</p>
+    <p>(A ∧ B)′ ⇔ A′ ∨ B′ — negar “e” vira “ou” com cada parte negada.</p>
+    <aside class="pegadinha">⚠️ <strong>Pegadinha:</strong> negar (A ∨ B) NÃO é (A′ ∨ B′). Isso esquece de trocar ∧ por ∨. Ex. 1.1.9 e 1.1.10 do livro exploram isso.</aside>
+    <p class="ref">📖 Livro: pp. 16–18 | 📝 Pratique na lista: Ex. 1.1.9, 1.1.10</p>
+  </article>
+
+  <article class="concept">
+    <h3>1.6 Tautologia, contradição e contingência</h3>
+    <p><strong>Tautologia:</strong> sempre V (coluna final toda V). Ex.: P ∨ P′.</p>
+    <p><strong>Contradição:</strong> sempre F. Ex.: P ∧ P′.</p>
+    <p><strong>Contingência:</strong> depende dos valores das letras — às vezes V, às vezes F.</p>
+    <p class="ref">📖 Livro: pp. 18–20 | 📝 Pratique na lista: Ex. 1.1.11</p>
+  </article>
+
+  <aside class="resumao">
+    <h4>Resumão de Bolso</h4>
+    <ul class="takeaways">
+      <li>Proposição = afirmação V ou F.</li>
+      <li>Condicional só F quando antecedente V e consequente F.</li>
+      <li>Tabela-verdade: subexpressões de dentro para fora.</li>
+      <li>De Morgan: negar grupo troca ∧↔∨ e nega cada parte.</li>
+      <li>Tautologia = coluna final toda V.</li>
+    </ul>
+    <p class="practice-hint">📝 Pratique esta seção: Ex. 1.1.1 a Ex. 1.1.11</p>
+  </aside>
+</section>
+
+<!-- Section 2 - Gersting 1.1 Tabela 1 -->
+<section id="sec-2">
+  <p class="sec-label">Seção 2</p>
+  <h2 class="sec-title">Equivalências lógicas e <span class="hi">provas por equivalência</span></h2>
+
+  <article class="concept">
+    <h3>2.1 O que é equivalência lógica?</h3>
+    <p>Duas fbfs P e Q são logicamente equivalentes (escrevemos P ⇔ Q) quando têm exatamente a mesma tabela-verdade.</p>
+    <p>O símbolo ↔ dentro de uma fbf é operador lógico (parte da fórmula). Já ⇔ é metalinguagem: “estas duas fbfs são equivalentes”.</p>
+    <p class="ref">📖 Livro: pp. 20–22 | 📝 Pratique na lista: Ex. 1.1.12</p>
+  </article>
+
+  <article class="concept">
+    <h3>2.2 Tabela completa de equivalências (Tabela 1, Gersting)</h3>
+    <table>
+      <thead><tr><th>Lei</th><th>Forma</th></tr></thead>
+      <tbody>
+        <tr><td>Comutatividade</td><td>P ∧ Q ⇔ Q ∧ P; P ∨ Q ⇔ Q ∨ P</td></tr>
+        <tr><td>Associatividade</td><td>(P∧Q)∧R ⇔ P∧(Q∧R); (P∨Q)∨R ⇔ P∨(Q∨R)</td></tr>
+        <tr><td>Distributividade</td><td>P∧(Q∨R) ⇔ (P∧Q)∨(P∧R); P∨(Q∧R) ⇔ (P∨Q)∧(P∨R)</td></tr>
+        <tr><td>De Morgan</td><td>(P∧Q)′ ⇔ P′∨Q′; (P∨Q)′ ⇔ P′∧Q′</td></tr>
+        <tr><td>Condicional como disjunção</td><td>P → Q ⇔ P′ ∨ Q</td></tr>
+        <tr><td>Dupla negação</td><td>(P′)′ ⇔ P</td></tr>
+        <tr><td>Definição de ↔</td><td>P ↔ Q ⇔ (P→Q) ∧ (Q→P)</td></tr>
+        <tr><td>Elemento neutro</td><td>P ∧ 1 ⇔ P; P ∨ 0 ⇔ P</td></tr>
+        <tr><td>Dominação</td><td>P ∨ 1 ⇔ 1; P ∧ 0 ⇔ 0</td></tr>
+        <tr><td>Complementaridade</td><td>P ∨ P′ ⇔ 1; P ∧ P′ ⇔ 0</td></tr>
+        <tr><td>Idempotência</td><td>P ∧ P ⇔ P; P ∨ P ⇔ P</td></tr>
+      </tbody>
+    </table>
+    <p class="ref">📖 Livro: Tabela 1, pp. 22–26 | 📝 Pratique na lista: Ex. 1.1.13 a 1.1.15</p>
+  </article>
+
+  <article class="concept">
+    <h3>2.3 Provar equivalência por cadeia</h3>
+    <p>Estratégia: comece pelo lado mais “pesado”, simplifique com equivalências nomeadas até chegar ao outro lado ou a 1/0.</p>
+    <p>Para provar tautologia P ⇔ 1, simplifique P até virar 1.</p>
+  </article>
+
+  <div class="worked-example">
+    <h4>Exemplo resolvido: (A ∧ B)′ ∧ (A ∨ B′) ⇔ B′</h4>
+    <p class="setup">Este é o núcleo da Q1.c — cadeia algébrica, não tabela-verdade.</p>
+    <table class="equivalence-chain">
+      <tr><td>(A ∧ B)′ ∧ (A ∨ B′)</td><td>⇔ (A′ ∨ B′) ∧ (A ∨ B′)</td><td>De Morgan</td></tr>
+      <tr><td></td><td>⇔ (B′ ∨ A′) ∧ (B′ ∨ A)</td><td>Comutatividade (duas vezes)</td></tr>
+      <tr><td></td><td>⇔ B′ ∨ (A′ ∧ A)</td><td>Distributividade (∨ sobre ∧)</td></tr>
+      <tr><td></td><td>⇔ B′ ∨ 0</td><td>Complementaridade: A′∧A ⇔ 0</td></tr>
+      <tr><td></td><td>⇔ B′</td><td>Elemento neutro: P∨0 ⇔ P</td></tr>
+    </table>
+    <ol class="steps">
+      <li><span class="step">De Morgan no primeiro fator:</span> (A∧B)′ vira A′∨B′. <span class="thinking">💭 Sempre ataque negação de grupo primeiro.</span></li>
+      <li><span class="step">Comutatividade:</span> reorganize para ver B′ repetido. <span class="thinking">💭 Procure fator comum antes de distribuir.</span></li>
+      <li><span class="step">Distributividade:</span> B′∨A′ e B′∨A → B′∨(A′∧A). <span class="thinking">💭 Padrão (X∨Y)∧(X∨Z) ⇔ X∨(Y∧Z).</span></li>
+      <li><span class="step">Complementaridade + neutro:</span> A′∧A ⇔ 0, então B′∨0 ⇔ B′. <span class="thinking">💭 Meta era B′ — isolamos exatamente isso.</span></li>
+    </ol>
+    <p class="closure">Conclusão: (A ∧ B)′ ∧ (A ∨ B′) ⇔ B′.</p>
+  </div>
+
+  <article class="concept">
+    <h3>2.4 Heurística quando travar</h3>
+    <ul>
+      <li>Negação de parênteses → De Morgan.</li>
+      <li>Condicional → troque por P′∨Q.</li>
+      <li>Procure P∨P′ ou P∧P′ para colapsar.</li>
+      <li>Distribua para fatorar e isolar o termo alvo.</li>
+    </ul>
+    <p class="ref">📖 Livro: pp. 26–28 | 📝 Pratique na lista: Ex. 1.1.16</p>
+  </article>
+
+  <aside class="resumao">
+    <h4>Resumão de Bolso</h4>
+    <ul class="takeaways">
+      <li>⇔ entre fbfs = mesma tabela-verdade; ↔ = operador dentro da fbf.</li>
+      <li>Condicional P→Q ⇔ P′∨Q é a troca mais usada em provas.</li>
+      <li>Cadeia: nomeie cada equivalência (De Morgan, distributiva…).</li>
+      <li>Meta clara (ex.: B′) guia a fatoração.</li>
+    </ul>
+    <p class="practice-hint">📝 Pratique esta seção: Ex. 1.1.12 a Ex. 1.1.18</p>
+  </aside>
+</section>
+
+<!-- Section 3 - Gersting 1.2 -->
+<section id="sec-3">
+  <p class="sec-label">Seção 3</p>
+  <h2 class="sec-title">Argumentos válidos em <span class="hi">lógica proposicional</span></h2>
+
+  <article class="concept">
+    <h3>3.1 O que é argumento válido?</h3>
+    <p>Argumento = conjunto de premissas + conclusão. É válido quando não existe linha da tabela (ou interpretação) em que todas as premissas são V e a conclusão é F.</p>
+    <p>Intuição: se as premissas forem verdadeiras, a conclusão não pode falhar.</p>
+    <p class="ref">📖 Livro: pp. 30–34 | 📝 Pratique na lista: Ex. 1.2.1</p>
+  </article>
+
+  <article class="concept">
+    <h3>3.2 Duas formas de provar validade</h3>
+    <p><strong>Cadeia de equivalências:</strong> transforme premissas até extrair a conclusão (estilo Q2).</p>
+    <p><strong>Regras de inferência:</strong> sequência numerada linha a linha (estilo Ex. 1.2.12, 1.2.14).</p>
+    <p class="ref">📖 Livro: pp. 34–40 | 📝 Pratique na lista: Ex. 1.2.10 a 1.2.14</p>
+  </article>
+
+  <article class="concept">
+    <h3>3.3 Regras de inferência principais</h3>
+    <table>
+      <thead><tr><th>Sigla</th><th>Nome</th><th>Forma</th><th>Quando usar</th></tr></thead>
+      <tbody>
+        <tr><td>mp</td><td>Modus ponens</td><td>P, P→Q ⊢ Q</td><td>Tem condicional V e antecedente V</td></tr>
+        <tr><td>mt</td><td>Modus tollens</td><td>P→Q, Q′ ⊢ P′</td><td>Condicional V e negou o consequente</td></tr>
+        <tr><td>sd</td><td>Silogismo disjuntivo</td><td>P∨Q, P′ ⊢ Q</td><td>Disjunção V e uma parcela F</td></tr>
+        <tr><td>sh</td><td>Silogismo hipotético</td><td>P→Q, Q→R ⊢ P→R</td><td>Cadeia de condicionais</td></tr>
+        <tr><td>simp</td><td>Simplificação</td><td>P∧Q ⊢ P</td><td>Extrair um fator de conjunção</td></tr>
+        <tr><td>conj</td><td>Conjunção</td><td>P, Q ⊢ P∧Q</td><td>Juntar duas fbfs V</td></tr>
+        <tr><td>ad</td><td>Adição</td><td>P ⊢ P∨Q</td><td>Generalizar com disjunção</td></tr>
+      </tbody>
+    </table>
+    <p class="ref">📖 Livro: pp. 40–48 | 📝 Pratique na lista: Ex. 1.2.5 a 1.2.9</p>
+  </article>
+
+  <div class="worked-example">
+    <h4>Exemplo resolvido 1: argumento sobre tarifas (Q2 — equivalências)</h4>
+    <p class="setup">Letras: T = tarifas aumentam; U = usinas fecham; E = contas sobem; C = consumo cai. Premissas traduzidas: (T→U)′ ∧ (E∨C′)′. Conclusão desejada: U′ ∧ C.</p>
+    <table class="equivalence-chain">
+      <tr><td>(T→U)′ ∧ (E∨C′)′</td><td>⇔ (T′∨U) ∧ (E∨C′)′</td><td>Condicional como disjunção + De Morgan em (T→U)</td></tr>
+      <tr><td></td><td>⇔ (T′∨U) ∧ (E′∧C)</td><td>De Morgan em (E∨C′)</td></tr>
+      <tr><td></td><td>⇔ (T′∨U) ∧ E′ ∧ C</td><td>Associatividade / remoção de parênteses</td></tr>
+      <tr><td></td><td>⇔ T ∧ U′ ∧ E′ ∧ C</td><td>De Morgan expandido + distributiva (forma equivalente usada na prova)</td></tr>
+    </table>
+    <ol class="steps">
+      <li><span class="step">Traduzir “não é verdade que se T então U”:</span> negar o condicional inteiro → (T→U)′. <span class="thinking">💭 Erro comum: negar só U em vez de negar todo T→U.</span></li>
+      <li><span class="step">T→U ⇔ T′∨U, depois negar:</span> (T→U)′ ⇔ (T′∨U)′ ⇔ T∧U′. <span class="thinking">💭 Ou vá direto: condicional falso só quando T=V, U=F.</span></li>
+      <li><span class="step">Segunda premissa (E∨C′)′:</span> De Morgan → E′∧C. <span class="thinking">💭 Negar “ou” vira “e” com negações.</span></li>
+      <li><span class="step">Conjunção das premissas:</span> T∧U′∧E′∧C. De U′∧C concluímos U′∧C por simplificação/conjunção. <span class="thinking">💭 A conclusão está contida nas premissas simplificadas.</span></li>
+    </ol>
+    <p class="closure">Conclusão: o argumento é válido; U′∧C segue das premissas.</p>
+  </div>
+
+  <div class="worked-example">
+    <h4>Exemplo resolvido 2: validade por regras de inferência</h4>
+    <p class="setup">Premissas: P→Q, P, R→S, Q. Conclusão: S∨R (estrutura inspirada em Ex. 1.2.12).</p>
+    <ol class="steps">
+      <li><span class="step">1. P→Q</span> Premissa. <span class="thinking">💭 Condicional disponível.</span></li>
+      <li><span class="step">2. P</span> Premissa. <span class="thinking">💭 Antecedente V → mp.</span></li>
+      <li><span class="step">3. Q</span> mp em 1,2. <span class="thinking">💭 Modus ponens clássico.</span></li>
+      <li><span class="step">4. R→S</span> Premissa. <span class="thinking">💭 Outra cadeia condicional.</span></li>
+      <li><span class="step">5. Q∨R</span> ad em 3. <span class="thinking">💭 Adição para preparar disjunção.</span></li>
+      <li><span class="step">6. S∨R</span> resolução/ad combinações conforme estrutura alvo. <span class="thinking">💭 Se travar, volte às equivalências.</span></li>
+    </ol>
+    <p class="closure">Conclusão: sequência de inferência mostra validade quando cada linha cita regra explícita.</p>
+  </div>
+
+  <article class="concept">
+    <h3>3.4 Qual técnica usar?</h3>
+    <p>Equivalências quando a fbf parece “álgebra” (muitas negações, condicionais aninhados). Inferência quando premissas estão separadas e você extrai pedaços (mp, simp).</p>
+    <aside class="pegadinha">⚠️ <strong>Pegadinha:</strong> → (operador), ⊢ (dedução) e ⇔ (equivalência) são coisas diferentes. Não escreva A→B quando o enunciado pede provar A ⊢ B.</aside>
+    <p class="ref">📖 Livro: pp. 48–52 | 📝 Pratique na lista: Ex. 1.2.12, 1.2.14</p>
+  </article>
+
+  <aside class="resumao">
+    <h4>Resumão de Bolso</h4>
+    <ul class="takeaways">
+      <li>Válido = impossível premissas V e conclusão F.</li>
+      <li>mp: P e P→Q dão Q.</li>
+      <li>Traduzir bem é metade da Q2.</li>
+      <li>Negar condicional = negar a fbf inteira, não só o consequente.</li>
+    </ul>
+    <p class="practice-hint">📝 Pratique esta seção: Ex. 1.2.1 a Ex. 1.2.14</p>
+  </aside>
+</section>
+
+<!-- Section 4 - Gersting 1.3 -->
+<section id="sec-4">
+  <p class="sec-label">Seção 4</p>
+  <h2 class="sec-title">Quantificadores e <span class="hi">predicados</span></h2>
+
+  <article class="concept">
+    <h3>4.1 ∀ e ∃ — quando usar</h3>
+    <p>∀x P(x): “todo x no domínio satisfaz P”. ∃x P(x): “há pelo menos um x que satisfaz P”.</p>
+    <p>Analogia: “Todo aluno entregou” = ∀x A(x). “Algum aluno faltou” = ∃x F(x).</p>
+    <p class="ref">📖 Livro: pp. 54–58 | 📝 Pratique na lista: Ex. 1.3.1 a 1.3.5</p>
+  </article>
+
+  <article class="concept">
+    <h3>4.2 Predicados unários e binários</h3>
+    <p>Unário: P(x), C(x) — propriedade de um elemento. Binário: W(x,y), S(x,y) — relação entre x e y.</p>
+    <p>W(m,a) ≠ W(a,m): ordem dos argumentos importa. Q4 da prova usa W(x,y) e S(x,y).</p>
+    <p class="ref">📖 Livro: pp. 58–62 | 📝 Pratique na lista: Ex. 1.3.6</p>
+  </article>
+
+  <article class="concept">
+    <h3>4.3 Seis padrões de tradução PT → fbf</h3>
+    <table>
+      <thead><tr><th>Português</th><th>Fbf</th></tr></thead>
+      <tbody>
+        <tr><td>Todo A é B</td><td>(∀x)[A(x) → B(x)]</td></tr>
+        <tr><td>Algum A é B</td><td>(∃x)[A(x) ∧ B(x)]</td></tr>
+        <tr><td>Nenhum A é B</td><td>(∀x)[A(x) → B(x)′] ou ¬∃x[A(x)∧B(x)]</td></tr>
+        <tr><td>Algum A não é B</td><td>(∃x)[A(x) ∧ B(x)′]</td></tr>
+        <tr><td>Todo A que P faz Q</td><td>(∀x)[A(x) → (P(x) → Q(x))] ou (∀x)[(A(x)∧P(x)) → Q(x)]</td></tr>
+        <tr><td>Existe A tal que P e Q</td><td>(∃x)[A(x) ∧ P(x) ∧ Q(x)]</td></tr>
+      </tbody>
+    </table>
+    <aside class="pegadinha">⚠️ <strong>Pegadinha:</strong> “todo X é Y” usa →, não ∧. “Algum X é Y” usa ∧, não →. Trocar isso invalida a fbf.</aside>
+    <aside class="pegadinha">⚠️ <strong>Pegadinha:</strong> se o domínio já é restrito (ex.: “estudantes da turma”), não adicione E(x) extra — veja Q3.a.</aside>
+    <p class="ref">📖 Livro: pp. 62–70 | 📝 Pratique na lista: Ex. 1.3.14</p>
+  </article>
+
+  <div class="worked-example">
+    <h4>Exemplo resolvido: ler ∃x[P(x) ∧ R(x)′] em português</h4>
+    <p class="setup">P(x): x participa das atividades. R(x): x recebe recomendação positiva.</p>
+    <ol class="steps">
+      <li><span class="step">∃x:</span> “Existe (pelo menos) um estudante”. <span class="thinking">💭 Quantificador existencial abre com “algum/existe”.</span></li>
+      <li><span class="step">P(x) ∧ R(x)′:</span> participa E não recebe recomendação. <span class="thinking">💭 ∧ dentro de ∃ = “que … e …”.</span></li>
+      <li><span class="step">R(x)′:</span> negação do predicado — “não recebe recomendação positiva”. <span class="thinking">💭 Não esqueça a negação no predicado.</span></li>
+    </ol>
+    <p class="closure">Tradução: “Existe um estudante que participa das atividades e não recebe recomendação positiva.” (Q3.b)</p>
+  </div>
+
+  <article class="concept">
+    <h3>4.4 Negação de quantificadores</h3>
+    <p>¬(∀x P(x)) ⇔ (∃x) P(x)′ — negar “todos” vira “existe um que não”.</p>
+    <p>¬(∃x P(x)) ⇔ (∀x) P(x)′ — negar “existe” vira “todos não”.</p>
+    <aside class="pegadinha">⚠️ <strong>Pegadinha:</strong> ao negar quantificador, negue também o predicado. ¬∀x P(x) não é ∃x P(x).</aside>
+    <p class="ref">📖 Livro: pp. 70–74 | 📝 Pratique na lista: Ex. 1.3.28</p>
+  </article>
+
+  <article class="concept">
+    <h3>4.5 Ordem dos quantificadores</h3>
+    <p>∀x∃y P(x,y) ≠ ∃y∀x P(x,y). Exemplo: “Todo número tem um sucessor” (∀x∃y y=x+1) vs “Existe um número maior que todos” (∃y∀x y&gt;x) — falso nos reais.</p>
+    <p class="ref">📖 Livro: pp. 74–76 | 📝 Pratique na lista: Ex. 1.3.4</p>
+  </article>
+
+  <div class="worked-example">
+    <h4>Exemplo resolvido: tradução complexa (estilo Ex. 1.3.26.f)</h4>
+    <p class="setup">“Nenhuma mulher trabalha para Ivan.” Domínio: pessoas. W(x): x é mulher. T(x,y): x trabalha para y. i: Ivan.</p>
+    <ol class="steps">
+      <li><span class="step">“Nenhuma mulher…”:</span> para toda mulher, a propriedade falha. <span class="thinking">💭 “Nenhum A é B” → ∀x[A(x)→B(x)′].</span></li>
+      <li><span class="step">Formalizar:</span> (∀x)[W(x) → T(x,i)′]. <span class="thinking">💭 Binário T(x,i): x trabalha para Ivan.</span></li>
+    </ol>
+    <p class="closure">Equivalência alternativa: ¬(∃x)[W(x) ∧ T(x,i)].</p>
+  </div>
+
+  <aside class="resumao">
+    <h4>Resumão de Bolso</h4>
+    <ul class="takeaways">
+      <li>Todo → ∀ com →; algum → ∃ com ∧.</li>
+      <li>Negar quantificador: troca ∀↔∃ e nega predicado.</li>
+      <li>Ordem dos quantificadores muda significado.</li>
+      <li>Predicados binários: preserve ordem dos argumentos.</li>
+    </ul>
+    <p class="practice-hint">📝 Pratique esta seção: Ex. 1.3.1 a Ex. 1.3.28</p>
+  </aside>
+</section>
+
+<!-- Section 5 - Gersting 1.4 -->
+<section id="sec-5">
+  <p class="sec-label">Seção 5</p>
+  <h2 class="sec-title">Demonstrações em <span class="hi">lógica de predicados</span></h2>
+
+  <article class="concept">
+    <h3>5.1 Quatro regras novas + proposicional</h3>
+    <table>
+      <thead><tr><th>Sigla</th><th>Nome</th><th>Ideia</th><th>Restrição crítica</th></tr></thead>
+      <tbody>
+        <tr><td>pu</td><td>Particularização universal</td><td>(∀x)P(x) ⊢ P(c)</td><td>c qualquer constante do domínio</td></tr>
+        <tr><td>pe</td><td>Particularização existencial</td><td>(∃x)P(x) ⊢ P(c)</td><td>c NOVA — não aparecia antes</td></tr>
+        <tr><td>gu</td><td>Generalização universal</td><td>P(c) ⊢ (∀x)P(x)</td><td>c arbitrária; NÃO pode vir de pe</td></tr>
+        <tr><td>ge</td><td>Generalização existencial</td><td>P(c) ⊢ (∃x)P(x)</td><td>c qualquer termo já derivado</td></tr>
+      </tbody>
+    </table>
+    <p>Regras proposicionais (mp, mt, sd, sh, simp, conj, ad) continuam válidas após particularizar.</p>
+    <p class="ref">📖 Livro: pp. 78–86 | 📝 Pratique na lista: Ex. 1.4.1 a 1.4.10</p>
+  </article>
+
+  <article class="concept">
+    <h3>5.2 Receita de bolo para provas</h3>
+    <ol class="receita">
+      <li>Tem ∃ nas premissas? Aplique pe PRIMEIRO — introduza constante nova (ex.: a).</li>
+      <li>Tem ∀ nas premissas? Aplique pu com a MESMA constante (ex.: a ou m).</li>
+      <li>Use mp, mt, sd, simp, conj como na proposicional.</li>
+      <li>Conclusão ∃? Termine com ge.</li>
+      <li>Conclusão ∀? Termine com gu — constante deve ser arbitrária (nunca vinda de pe).</li>
+    </ol>
+    <div class="mnemonic">
+      🧠 <strong>Lembrete:</strong> pe cria a constante; pu reutiliza a mesma; gu não pode generalizar constante de pe.
+    </div>
+    <p class="ref">📖 Livro: pp. 86–90 | 📝 Pratique na lista: Ex. 1.4.11</p>
+  </article>
+
+  <div class="worked-example">
+    <h4>Exemplo resolvido: Q4 — estudante de CC (prova formal completa)</h4>
+    <p class="setup">C(x): x é estudante de CC. W(x,y): x trabalha mais que y. S(x,y): x estuda mais que y. m: Maria. Premissas: (∀x)[C(x)→(∃y)W(x,y)]; (∀x)(∀y)[W(x,y)→S(x,y)]; C(m). Conclusão: (∃y)S(m,y).</p>
+    <table class="formal-proof">
+      <thead><tr><th>#</th><th>Fórmula</th><th>Justificativa</th><th>💭 Por quê</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>(∀x)[C(x) → (∃y)W(x,y)]</td><td>Premissa</td><td>Regra geral: todo CC trabalha mais que alguém</td></tr>
+        <tr><td>2</td><td>(∀x)(∀y)[W(x,y) → S(x,y)]</td><td>Premissa</td><td>Quem trabalha mais também estuda mais</td></tr>
+        <tr><td>3</td><td>C(m)</td><td>Premissa</td><td>Maria é estudante de CC</td></tr>
+        <tr><td>4</td><td>C(m) → (∃y)W(m,y)</td><td>pu em 1, x=m</td><td>Instancio ∀ na constante m</td></tr>
+        <tr><td>5</td><td>(∃y)W(m,y)</td><td>mp em 3,4</td><td>Maria trabalha mais que alguém</td></tr>
+        <tr><td>6</td><td>W(m,a)</td><td>pe em 5</td><td>Escolho constante nova a para o “alguém”</td></tr>
+        <tr><td>7</td><td>(∀y)[W(m,y) → S(m,y)]</td><td>pu em 2, x=m</td><td>Primeira particularização: fixo x=m</td></tr>
+        <tr><td>8</td><td>W(m,a) → S(m,a)</td><td>pu em 7, y=a</td><td>Segunda particularização: MESMA constante a da linha 6</td></tr>
+        <tr><td>9</td><td>S(m,a)</td><td>mp em 6,8</td><td>Maria estuda mais que a</td></tr>
+        <tr><td>10</td><td>(∃y)S(m,y)</td><td>ge em 9</td><td>Generalizo existencial — conclusão</td></tr>
+      </tbody>
+    </table>
+    <aside class="pegadinha">⚠️ <strong>Pegadinha:</strong> usar constante diferente em pu (ex.: b em vez de a) quebra a prova. W(m,a) e W(m,b) não conectam.</aside>
+    <p class="closure">Prova completa em 10 linhas: 3 premissas + pu + mp + pe + pu + pu + mp + ge.</p>
+  </div>
+
+  <div class="worked-example">
+    <h4>Exemplo resolvido: silogismo Darii</h4>
+    <p class="setup">Forma clássica (Ex. 1.4.31): (∀x)[M(x)→P(x)], (∃x)[S(x)∧M(x)] ⊢ (∃x)[S(x)∧P(x)].</p>
+    <ol class="steps">
+      <li><span class="step">pe na premissa existencial:</span> S(a)∧M(a) para constante nova a. <span class="thinking">💭 ∃ sempre primeiro.</span></li>
+      <li><span class="step">simp:</span> M(a). <span class="thinking">💭 Extraio parte da conjunção.</span></li>
+      <li><span class="step">pu na universal:</span> M(a)→P(a). <span class="thinking">💭 Mesma constante a.</span></li>
+      <li><span class="step">mp:</span> P(a). <span class="thinking">💭 Modus ponens.</span></li>
+      <li><span class="step">conj + ge:</span> S(a)∧P(a), logo (∃x)[S(x)∧P(x)]. <span class="thinking">💭 Silogismo Darii completo.</span></li>
+    </ol>
+    <p class="closure">Ferio é variante com negação — mesma receita pe → pu → mp.</p>
+  </div>
+
+  <aside class="pegadinha">⚠️ <strong>Pegadinha:</strong> gu em constante introduzida por pe é inválido — essa constante não representa “qualquer” elemento.</aside>
+
+  <aside class="resumao">
+    <h4>Resumão de Bolso</h4>
+    <ul class="takeaways">
+      <li>Ordem: pe (se ∃) → pu (se ∀) → mp/mt → ge/gu.</li>
+      <li>Mesma constante entre pe e pu seguinte.</li>
+      <li>W(x,y) ≠ W(y,x) — ordem importa.</li>
+      <li>Q4 é o modelo-tipo de prova formal com binários.</li>
+    </ul>
+    <p class="practice-hint">📝 Pratique esta seção: Ex. 1.4.11 a Ex. 1.4.31</p>
+  </aside>
+</section>
+
+<!-- Section 6 - Gersting 1.3-1.4 meta -->
+<section id="sec-6">
+  <p class="sec-label">Seção 6</p>
+  <h2 class="sec-title">Sintaxe, semântica e <span class="hi">validade</span></h2>
+
+  <article class="concept">
+    <h3>6.1 Sintaxe vs semântica</h3>
+    <p><strong>Sintaxe:</strong> regras de formação — o que é fbf bem-formada (gramática dos símbolos).</p>
+    <p><strong>Semântica:</strong> significado numa interpretação (domínio + atribuição a predicados e constantes).</p>
+    <p>Analogia: sintaxe = frase gramaticalmente correta; semântica = o que a frase afirma no mundo.</p>
+    <p class="ref">📖 Livro: pp. 92–96 | 📝 Pratique na lista: Ex. 1.4.17</p>
+  </article>
+
+  <article class="concept">
+    <h3>6.2 Fórmula bem-formada (fbf)</h3>
+    <p>Válida sintaticamente: P(a), (P(x)→Q(x)), (∀x)[P(x)∧Q(x)], etc.</p>
+    <p>Inválida: P∧→Q (conectivos mal colocados), ∀x P(x)∧ (parênteses inconsistentes), predicados com aridade errada.</p>
+    <p class="ref">📖 Livro: pp. 96–98 | 📝 Pratique na lista: Ex. 1.3.30</p>
+  </article>
+
+  <div class="worked-example">
+    <h4>Exemplo resolvido: verdade vs validade</h4>
+    <p class="setup">Fbf: (∀x)[P(x)→P(x)]. Domínio {1,2}. Interpretação I₁: P={1,2}. Interpretação I₂: P=∅.</p>
+    <ol class="steps">
+      <li><span class="step">Em I₁:</span> para todo x, P(x)→P(x) é V (implicação com mesmo valor). <span class="thinking">💭 Verdadeira nesta interpretação.</span></li>
+      <li><span class="step">Em I₂:</span> P(x) sempre F, então P→P ainda V (F→F). <span class="thinking">💭 Também V aqui.</span></li>
+      <li><span class="step">Validade:</span> em QUALQUER interpretação, P→P é V. Logo fbf válida. <span class="thinking">💭 Validade = verdade em todas.</span></li>
+    </ol>
+    <p class="closure">Distinção: “verdadeira em I” ≠ “válida”. Validade quantifica sobre todas as interpretações.</p>
+  </div>
+
+  <article class="concept">
+    <h3>6.3 Argumento válido (semântica)</h3>
+    <p>Argumento válido: não existe interpretação onde todas as premissas são V e a conclusão F.</p>
+    <p>Diferente de “fbf válida”: argumento tem premissas + conclusão; fbf válida é uma única fórmula sempre V.</p>
+    <p class="ref">📖 Livro: pp. 98–102 | 📝 Pratique na lista: Ex. 1.4.18</p>
+  </article>
+
+  <article class="concept">
+    <h3>6.4 Validade semântica vs demonstrabilidade sintática</h3>
+    <p><strong>Válido (semântica):</strong> impossível premissas V e conclusão F em qualquer interpretação.</p>
+    <p><strong>Demonstrável (sintaxe):</strong> existe sequência de inferência das premissas à conclusão usando regras do sistema.</p>
+    <p class="ref">📖 Livro: pp. 102–106 | 📝 Pratique na lista: Ex. 1.4.19</p>
+  </article>
+
+  <article class="concept">
+    <h3>6.5 Corretude e completude</h3>
+    <p><strong>Corretude:</strong> se ⊢ então válido — o sistema não prova coisa errada.</p>
+    <p><strong>Completude:</strong> se válido então ⊢ — todo argumento válido tem prova no sistema.</p>
+    <p>Lógica de predicados de 1ª ordem é correta e completa (Gödel). Na prova, explique com palavras + exemplo.</p>
+    <aside class="pegadinha">⚠️ <strong>Pegadinha:</strong> “tautologia” é termo proposicional. Em predicados diga “fbf válida” ou “argumento válido”.</aside>
+    <p class="ref">📖 Livro: pp. 106–110 | 📝 Pratique na lista: Ex. 1.4.20</p>
+  </article>
+
+  <aside class="resumao">
+    <h4>Resumão de Bolso</h4>
+    <ul class="takeaways">
+      <li>Sintaxe = forma; semântica = significado numa interpretação.</li>
+      <li>Verdade em I ≠ validade (em todas as I).</li>
+      <li>Corretude: prova → válido. Completude: válido → prova.</li>
+      <li>Q5 cobra exatamente estes vocabulários.</li>
+    </ul>
+    <p class="practice-hint">📝 Pratique esta seção: Ex. 1.4.17 a Ex. 1.4.20</p>
+  </aside>
+</section>
+
+<!-- Section 7 - Prova explicada -->
+<section id="sec-7">
+  <p class="sec-label">Seção 7</p>
+  <h2 class="sec-title">A prova anterior <span class="hi">explicada</span></h2>
+  <p>Esta seção destrincha cada item da primeira prova. Leia junto com as Seções 1–6 conforme indicado.</p>
+
+  <article class="exam-question">
+    <h3>Questão 1.a (5 pts) — Tradução PT → fbf</h3>
+    <div class="statement">Se as notas <strong>não</strong> forem pagas e houver atraso na entrega, então o cliente <strong>não</strong> ficará feliz. Letras: N = notas pagas, L = atraso na entrega, C = cliente feliz.</div>
+    <div class="what-its-testing"><strong>O que essa questão cobra:</strong> tradução com condicional e conjunção na antecedente; negações corretas. Ver Seção 1.4.</div>
+    <aside class="pegadinha">⚠️ <strong>Onde a maioria erra:</strong> confundir N com N′ — “notas NÃO pagas” é N′, não N. Mesmo para C′.</aside>
+    <div class="worked-example">
+      <h4>Resolução</h4>
+      <ol class="steps">
+        <li><span class="step">Átomos positivos:</span> N, L, C. <span class="thinking">💭 Sempre nomeie positivo antes de negar.</span></li>
+        <li><span class="step">Antecedente:</span> N′ ∧ L. <span class="thinking">💭 “Não pagas E atraso”.</span></li>
+        <li><span class="step">Consequente:</span> C′. <span class="thinking">💭 Cliente NÃO feliz.</span></li>
+        <li><span class="step">Condicional:</span> (N′ ∧ L) → C′. <span class="thinking">💭 Estrutura “se … então …”.</span></li>
+      </ol>
+      <p class="closure"><strong>Gabarito:</strong> (N′ ∧ L) → C′</p>
+    </div>
+    <div class="strategy"><strong>Estratégia geral:</strong> leia devagar, marque cada átomo, aplique negações por último, monte antecedente∧/∨ e então →.</div>
+    <p class="practice-hint">📝 Fixar com: Ex. 1.1.5, 1.1.7</p>
+  </article>
+
+  <article class="exam-question">
+    <h3>Questão 1.b (5 pts) — Tabela-verdade / tautologia</h3>
+    <div class="statement">Construa a tabela-verdade de (A ∧ B)′ ↔ A′ ∨ B′ e diga se é tautologia.</div>
+    <div class="what-its-testing"><strong>O que essa questão cobra:</strong> construção de tabela e reconhecimento de tautologia. Ver Seção 1.3.</div>
+    <aside class="pegadinha">⚠️ <strong>Onde a maioria erra:</strong> calcular (A∧B)′ antes de ter A∧B; ou confundir ↔ com ⇔.</aside>
+    <div class="worked-example">
+      <h4>Resolução</h4>
+      <table class="truth-table">
+        <thead><tr><th>A</th><th>B</th><th>A∧B</th><th>(A∧B)′</th><th>A′</th><th>B′</th><th>A′∨B′</th><th>(A∧B)′↔(A′∨B′)</th></tr></thead>
+        <tbody>
+          <tr><td>V</td><td>V</td><td>V</td><td>F</td><td>F</td><td>F</td><td>F</td><td>V</td></tr>
+          <tr><td>V</td><td>F</td><td>F</td><td>V</td><td>F</td><td>V</td><td>V</td><td>V</td></tr>
+          <tr><td>F</td><td>V</td><td>F</td><td>V</td><td>V</td><td>F</td><td>V</td><td>V</td></tr>
+          <tr><td>F</td><td>F</td><td>F</td><td>V</td><td>V</td><td>V</td><td>V</td><td>V</td></tr>
+        </tbody>
+      </table>
+      <p class="closure">Coluna final toda V → <strong>tautologia</strong> (lei de De Morgan).</p>
+    </div>
+    <div class="strategy"><strong>Estratégia geral:</strong> subexpressões de dentro para fora; coluna final toda V = tautologia.</div>
+    <p class="practice-hint">📝 Fixar com: Ex. 1.1.6, 1.1.11</p>
+  </article>
+
+  <article class="exam-question">
+    <h3>Questão 1.c (10 pts) — Cadeia de equivalências</h3>
+    <div class="statement">Prove por equivalências que (A ∧ B)′ ∧ (A ∨ B′) ⇔ B′.</div>
+    <div class="what-its-testing"><strong>O que essa questão cobra:</strong> cadeia ⇔ nomeada — De Morgan, comutatividade, distributividade, complementaridade. Seção 2.</div>
+    <aside class="pegadinha">⚠️ <strong>Onde a maioria erra:</strong> fazer tabela-verdade quando pediram cadeia; ou pular justificativa.</aside>
+    <div class="worked-example">
+      <table class="equivalence-chain">
+        <tr><td>(A∧B)′∧(A∨B′)</td><td>⇔ (A′∨B′)∧(A∨B′)</td><td>De Morgan</td></tr>
+        <tr><td></td><td>⇔ (B′∨A′)∧(B′∨A)</td><td>Comutatividade</td></tr>
+        <tr><td></td><td>⇔ B′∨(A′∧A)</td><td>Distributividade</td></tr>
+        <tr><td></td><td>⇔ B′∨0</td><td>Complementaridade</td></tr>
+        <tr><td></td><td>⇔ B′</td><td>Elemento neutro</td></tr>
+      </table>
+      <p class="closure"><strong>Gabarito:</strong> cadeia termina em B′.</p>
+    </div>
+    <div class="strategy"><strong>Estratégia geral:</strong> olhe a conclusão (B′), fatorize B′, use complementaridade.</div>
+    <p class="practice-hint">📝 Fixar com: Ex. 1.1.16, 1.1.18</p>
+  </article>
+
+  <article class="exam-question">
+    <h3>Questão 2 (20 pts) — Argumento por equivalência (tarifas)</h3>
+    <div class="statement">Premissas em português sobre tarifas (T), usinas (U), contas (E) e consumo (C). Traduzir e provar validade por equivalências até concluir U′∧C.</div>
+    <div class="what-its-testing"><strong>O que essa questão cobra:</strong> tradução com negação de condicional e De Morgan; cadeia algébrica. Seções 1, 2, 3.</div>
+    <aside class="pegadinha">⚠️ <strong>Onde a maioria erra:</strong> “não é verdade que se T então U” = (T→U)′, não T→U′.</aside>
+    <div class="worked-example">
+      <p class="setup">Premissas: (T→U)′ ∧ (E∨C′)′</p>
+      <table class="equivalence-chain">
+        <tr><td>(T→U)′∧(E∨C′)′</td><td>⇔ (T′∨U)′∧(E′∧C)</td><td>Condicional + De Morgan duplo</td></tr>
+        <tr><td></td><td>⇔ T∧U′∧E′∧C</td><td>Simplificação</td></tr>
+        <tr><td></td><td>⊢ U′∧C</td><td>Simplificação/conjunção da conclusão</td></tr>
+      </table>
+      <p class="closure"><strong>Gabarito:</strong> (T→U)′∧(E∨C′)′ → T∧U′∧E′∧C, conclui U′∧C.</p>
+    </div>
+    <div class="strategy"><strong>Estratégia geral:</strong> tradução correta é metade; depois De Morgan e condicional como disjunção.</div>
+    <p class="practice-hint">📝 Fixar com: Ex. 1.2.10, 1.2.15</p>
+  </article>
+
+  <article class="exam-question">
+    <h3>Questão 3.a (6 pts) — Quantificador, domínio restrito</h3>
+    <div class="statement">Domínio: estudantes da turma. P(x): x passou. A(x): x foi aprovado. Traduza: “Todo estudante que passou foi aprovado.”</div>
+    <div class="what-its-testing"><strong>O que essa questão cobra:</strong> ∀ com →; domínio já restrito — sem E(x) extra. Seção 4.</div>
+    <aside class="pegadinha">⚠️ <strong>Onde a maioria erra:</strong> incluir E(x) desnecessário ou usar ∧ em vez de →.</aside>
+    <div class="worked-example">
+      <p class="closure"><strong>Gabarito:</strong> (∀x)[P(x) → A(x)]</p>
+    </div>
+    <div class="strategy"><strong>Estratégia geral:</strong> “todo … que …” → ∀ com implicação.</div>
+    <p class="practice-hint">📝 Fixar com: Ex. 1.3.14.a</p>
+  </article>
+
+  <article class="exam-question">
+    <h3>Questão 3.b (7 pts) — Fbf → português</h3>
+    <div class="statement">∃x[P(x) ∧ R(x)′] com P(x) = participa das atividades, R(x) = recebe recomendação positiva.</div>
+    <div class="what-its-testing"><strong>O que essa questão cobra:</strong> leitura de ∃ com ∧ e negação de predicado. Seção 4.4.</div>
+    <aside class="pegadinha">⚠️ <strong>Onde a maioria erra:</strong> traduzir ∧ como “ou”; esquecer R(x)′.</aside>
+    <div class="worked-example">
+      <p class="closure"><strong>Gabarito:</strong> Existe um estudante que participa das atividades e não recebe recomendação positiva.</p>
+    </div>
+    <div class="strategy"><strong>Estratégia geral:</strong> leia de fora para dentro: ∃ → “algum”; ∧ → “e”; ′ → “não”.</div>
+    <p class="practice-hint">📝 Fixar com: Ex. 1.3.15</p>
+  </article>
+
+  <article class="exam-question">
+    <h3>Questão 3.c (7 pts) — Validade semântica</h3>
+    <div class="statement">Argumento: (∀x)[P(x)→A(x)], (∃x)P(x) ⊢ (∃x)A(x). Justifique semanticamente (sem prova formal).</div>
+    <div class="what-its-testing"><strong>O que essa questão cobra:</strong> validade por interpretação — Seção 6.</div>
+    <aside class="pegadinha">⚠️ <strong>Onde a maioria erra:</strong> tentar prova formal quando pediram explicação em prosa.</aside>
+    <div class="worked-example">
+      <ol class="steps">
+        <li><span class="step">Hipótese:</span> premissas verdadeiras numa interpretação. <span class="thinking">💭 ∃x P(x) → há objeto c com P(c) V.</span></li>
+        <li><span class="step">Universal:</span> para todo x, P(x)→A(x) V. <span class="thinking">💭 Em especial para c: P(c)→A(c) V.</span></li>
+        <li><span class="step">mp semântico:</span> P(c) V implica A(c) V. <span class="thinking">💭 Logo ∃x A(x) V.</span></li>
+      </ol>
+      <p class="closure">Argumento válido: (∃x)A(x) não pode ser F quando premissas V.</p>
+    </div>
+    <div class="strategy"><strong>Estratégia geral:</strong> assuma premissas V, exiba o witness de ∃P, aplique ∀.</div>
+    <p class="practice-hint">📝 Fixar com: Ex. 1.4.18</p>
+  </article>
+
+  <article class="exam-question">
+    <h3>Questão 4 (20 pts) — Prova formal predicados</h3>
+    <div class="statement">Todo estudante de CC trabalha mais que alguém; quem trabalha mais estuda mais; Maria (m) é de CC. Concluir ∃y S(m,y). Predicados: C(x), W(x,y), S(x,y).</div>
+    <div class="what-its-testing"><strong>O que essa questão cobra:</strong> pu, pe, mp, ge com binários. Seção 5 — questão mais difícil.</div>
+    <aside class="pegadinha">⚠️ <strong>Onde a maioria erra:</strong> ordem pe/pu; constante diferente entre W(m,a) e regra ∀y.</aside>
+    <div class="worked-example">
+      <table class="formal-proof">
+        <thead><tr><th>#</th><th>Fórmula</th><th>Justificativa</th><th>💭</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>(∀x)[C(x)→(∃y)W(x,y)]</td><td>Premissa</td><td>—</td></tr>
+          <tr><td>2</td><td>(∀x)(∀y)[W(x,y)→S(x,y)]</td><td>Premissa</td><td>—</td></tr>
+          <tr><td>3</td><td>C(m)</td><td>Premissa</td><td>—</td></tr>
+          <tr><td>4</td><td>C(m)→(∃y)W(m,y)</td><td>pu em 1, x=m</td><td>Instancio m</td></tr>
+          <tr><td>5</td><td>(∃y)W(m,y)</td><td>mp em 3,4</td><td>—</td></tr>
+          <tr><td>6</td><td>W(m,a)</td><td>pe em 5</td><td>Constante nova a</td></tr>
+          <tr><td>7</td><td>(∀y)[W(m,y)→S(m,y)]</td><td>pu em 2, x=m</td><td>Primeiro pu: x=m</td></tr>
+          <tr><td>8</td><td>W(m,a)→S(m,a)</td><td>pu em 7, y=a</td><td>Segundo pu: mesmo a</td></tr>
+          <tr><td>9</td><td>S(m,a)</td><td>mp em 6,8</td><td>—</td></tr>
+          <tr><td>10</td><td>(∃y)S(m,y)</td><td>ge em 9</td><td>Conclusão</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="strategy"><strong>Estratégia geral:</strong> receita pe→pu→mp→ge; mesma constante após pe.</div>
+    <p class="practice-hint">📝 Fixar com: Ex. 1.4.11, 1.4.25</p>
+  </article>
+
+  <article class="exam-question">
+    <h3>Questão 5.a (5 pts) — Sintaxe: fbfs bem-formadas</h3>
+    <div class="statement">Por que três fbfs apresentadas são sintaticamente bem-formadas?</div>
+    <div class="what-its-testing"><strong>O que essa questão cobra:</strong> regras de formação — parênteses, aridade, quantificadores. Seção 6.2.</div>
+    <aside class="pegadinha">⚠️ <strong>Onde a maioria erra:</strong> confundir “verdadeira” com “bem-formada”.</aside>
+    <div class="worked-example">
+      <p>Cada fbf respeita: predicado(letras corretas), conectivos binários entre subfbfs, quantificador seguido de fbf entre colchetes. Sintaxe OK ≠ semanticamente verdadeira.</p>
+    </div>
+    <div class="strategy"><strong>Estratégia geral:</strong> verifique gramática, não conteúdo.</div>
+    <p class="practice-hint">📝 Fixar com: Ex. 1.3.30</p>
+  </article>
+
+  <article class="exam-question">
+    <h3>Questão 5.b (5 pts) — Interpretação semântica</h3>
+    <div class="statement">Explique como uma interpretação atribui significado e por que a mesma fbf pode ser V ou F.</div>
+    <div class="what-its-testing"><strong>O que essa questão cobra:</strong> domínio + interpretação de símbolos. Seção 6.1.</div>
+    <aside class="pegadinha">⚠️ <strong>Onde a maioria erra:</strong> falar só de V/F sem mencionar domínio.</aside>
+    <div class="worked-example">
+      <p>Interpretação I = (domínio D, valores dos predicados e constantes). Mesma sintaxe, duas interpretações → valores diferentes → verdade depende de I.</p>
+    </div>
+    <div class="strategy"><strong>Estratégia geral:</strong> cite domínio + atribuição + exemplo concreto.</div>
+    <p class="practice-hint">📝 Fixar com: Ex. 1.4.17</p>
+  </article>
+
+  <article class="exam-question">
+    <h3>Questão 5.c (5 pts) — Validade vs verdade vs argumento</h3>
+    <div class="statement">Distinguir: verdade em uma interpretação, fbf válida, argumento válido.</div>
+    <div class="what-its-testing"><strong>O que essa questão cobra:</strong> três conceitos distintos. Seção 6.3–6.4.</div>
+    <aside class="pegadinha">⚠️ <strong>Onde a maioria erra:</strong> usar “tautologia” para predicados; misturar fbf válida com argumento válido.</aside>
+    <div class="worked-example">
+      <ul>
+        <li>Verdade em I: uma fbf numa interpretação específica.</li>
+        <li>Fbf válida: V em todas as interpretações.</li>
+        <li>Argumento válido: impossível premissas V e conclusão F (sem exigir premissas verdadeiras em I).</li>
+      </ul>
+    </div>
+    <div class="strategy"><strong>Estratégia geral:</strong> três definições + um exemplo cada.</div>
+    <p class="practice-hint">📝 Fixar com: Ex. 1.4.18, 1.4.19</p>
+  </article>
+
+  <article class="exam-question">
+    <h3>Questão 5.d (5 pts) — Corretude e completude</h3>
+    <div class="statement">Defina corretude e completude do sistema dedutivo.</div>
+    <div class="what-its-testing"><strong>O que essa questão cobra:</strong> meta-teoria — Seção 6.5.</div>
+    <aside class="pegadinha">⚠️ <strong>Onde a maioria erra:</strong> trocar corretude com completude; invertendo implicações.</aside>
+    <div class="worked-example">
+      <p><strong>Corretude:</strong> demonstrável ⇒ válido (sistema confiável).</p>
+      <p><strong>Completude:</strong> válido ⇒ demonstrável (sistema suficiente).</p>
+    </div>
+    <div class="strategy"><strong>Estratégia geral:</strong> decore direção das setas; corretude = não prova lixo; completude = não falta prova.</div>
+    <p class="practice-hint">📝 Fixar com: Ex. 1.4.20</p>
+  </article>
+</section>
+
+<!-- Section 8 - Cheat sheet -->
+<section id="sec-8">
+  <p class="sec-label">Seção 8</p>
+  <h2 class="sec-title">Cheat sheet de <span class="hi">sobrevivência</span></h2>
+  <p>Consulta rápida antes da prova: reconheça o padrão do enunciado e vá direto à técnica certa.</p>
+  <table>
+    <thead><tr><th>Vejo no enunciado…</th><th>Provavelmente preciso de…</th><th>Onde estudar</th><th>Praticar com…</th></tr></thead>
+    <tbody>
+      <tr><td>“Construa a tabela-verdade”</td><td>4 passos; colunas intermediárias</td><td>Seção 1.3</td><td>Q1.b, Ex. 1.1.6</td></tr>
+      <tr><td>“Prove que é tautologia”</td><td>Cadeia ⇔ até 1, ou tabela</td><td>Seção 2</td><td>Q1.c, Ex. 1.1.16</td></tr>
+      <tr><td>“É válido? Mostre/prove” (proposicional)</td><td>Equivalências ou inferência mp/mt</td><td>Seção 3</td><td>Q2, Ex. 1.2.12</td></tr>
+      <tr><td>“Traduza para fbf” (sem quantificador)</td><td>Átomos + conectivos; cuidado com ′</td><td>Seção 1.4</td><td>Q1.a, Ex. 1.1.5</td></tr>
+      <tr><td>“Traduza para fbf” (com ∀/∃)</td><td>Todo→→, Algum→∧</td><td>Seção 4.3</td><td>Q3.a, Ex. 1.3.14</td></tr>
+      <tr><td>“Traduza para português”</td><td>Leitura de fora para dentro</td><td>Seção 4.4</td><td>Q3.b, Ex. 1.3.15</td></tr>
+      <tr><td>“Demonstre o argumento” (predicados)</td><td>pe→pu→mp→ge/gu</td><td>Seção 5</td><td>Q4, Ex. 1.4.11</td></tr>
+      <tr><td>“Justifique semanticamente”</td><td>Prosa sobre interpretações</td><td>Seção 6</td><td>Q3.c, Ex. 1.4.18</td></tr>
+      <tr><td>“Negue a fbf com quantificador”</td><td>Troca ∀↔∃ + nega predicado</td><td>Seção 4.5</td><td>Ex. 1.3.28</td></tr>
+      <tr><td>“Silogismo clássico”</td><td>pe + pu + mp (+ ge)</td><td>Seção 5.4</td><td>Ex. 1.4.31</td></tr>
+      <tr><td>“Ache contraexemplo” / fbf não-válida</td><td>Interpretação onde fbf é F</td><td>Seção 6</td><td>Ex. 1.4.17</td></tr>
+      <tr><td>“Corretude vs completude”</td><td>Definições meta-lógicas</td><td>Seção 6.5</td><td>Q5.d</td></tr>
+      <tr><td>“Diferença validade / tautologia”</td><td>Predicados: fbf válida; prop.: tautologia</td><td>Seção 6</td><td>Q5.c</td></tr>
+      <tr><td>“Negação de condicional”</td><td>(P→Q)′ ou P∧Q′</td><td>Seções 1–2</td><td>Q2, Ex. 1.1.9</td></tr>
+      <tr><td>“Ordem de quantificadores”</td><td>∀∃ ≠ ∃∀ — contraexemplo</td><td>Seção 4.5</td><td>Ex. 1.3.4</td></tr>
+    </tbody>
+  </table>
+  <div class="mnemonic">
+    🧠 <strong>Último lembrete:</strong> tradução errada invalida a prova inteira. Leia duas vezes, nomeie átomos, depois simbolize.
+  </div>
+  <p class="ref">📖 Revisão final: cap. 1 Gersting completo | 📝 Lista: repita Ex. 1.1.1–1.4.31 nos blocos fracos</p>
+</section>
+</article>
