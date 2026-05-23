@@ -31,10 +31,24 @@ function fitHeroTitleLines() {
   root.dataset.fitted = "1";
 }
 
+var touchUi = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+
 document.fonts.ready.then(fitHeroTitleLines);
-window.addEventListener("resize", () => {
-  const root = document.querySelector(".hero-title");
-  if (root) root.dataset.fitted = "";
-  fitHeroTitleLines();
-});
+
+if (!touchUi) {
+  var resizeTimer = 0;
+  var lastWidth = window.innerWidth;
+
+  window.addEventListener("resize", function () {
+  var w = window.innerWidth;
+  if (Math.abs(w - lastWidth) < 6) return;
+  lastWidth = w;
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(function () {
+    var root = document.querySelector(".hero-title");
+    if (root) root.dataset.fitted = "";
+    fitHeroTitleLines();
+  }, 180);
+  });
+}
 `;

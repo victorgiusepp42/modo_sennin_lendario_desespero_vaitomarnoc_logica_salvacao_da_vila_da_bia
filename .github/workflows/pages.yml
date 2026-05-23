@@ -31,16 +31,8 @@ jobs:
       - name: Prepare site
         run: |
           mkdir -p _site
+          cp dist/*.html _site/index.html
           cp dist/*.html _site/
-          cat > _site/index.html <<'EOF'
-          <!DOCTYPE html>
-          <html lang="pt-BR">
-          <meta charset="utf-8"/>
-          <meta http-equiv="refresh" content="0; url=modo_sennin_lendario_desespero_vaitomarnoc_logica_salvacao_da_vila_da_bia.html"/>
-          <title>Material — Lógica para IA</title>
-          <p><a href="modo_sennin_lendario_desespero_vaitomarnoc_logica_salvacao_da_vila_da_bia.html">Abrir material</a></p>
-          </html>
-          EOF
 
       - uses: actions/upload-pages-artifact@v3
         with:

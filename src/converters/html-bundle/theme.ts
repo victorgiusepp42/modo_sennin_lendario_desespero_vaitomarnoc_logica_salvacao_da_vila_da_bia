@@ -76,6 +76,7 @@ body {
   pointer-events: none;
   z-index: 0;
   overflow: hidden;
+  contain: layout paint style;
 }
 
 .orbs {
@@ -1082,6 +1083,74 @@ body::after {
   .worked-example h4,
   .resumao h4,
   #sec-0 > h1 { animation: none; }
+}
+
+/* Android / touch: animações pesadas (blur + blend + shine) causam flicker ao rolar */
+@media (hover: none) and (pointer: coarse) {
+  html { scroll-behavior: auto; }
+
+  body::after {
+    display: none;
+  }
+
+  .orb,
+  .fog-wisp,
+  .spark,
+  .material-principal > section::before,
+  .material-principal > article::before,
+  .material-principal > section::after,
+  .material-principal > article::after,
+  .hero-title__line,
+  .material-principal .sec-title,
+  .material-principal h2.sec-title,
+  .material-principal h3,
+  .concept h3,
+  .exam-question h3,
+  .material-principal h4,
+  .worked-example h4,
+  .resumao h4 {
+    animation: none !important;
+  }
+
+  .fog-wisp {
+    mix-blend-mode: normal;
+  }
+
+  .orb {
+    filter: blur(56px);
+    opacity: 0.32;
+  }
+
+  .ambient-sparks {
+    opacity: 0.25;
+  }
+
+  .spark {
+    opacity: 0.28;
+    box-shadow: 0 0 8px 2px rgba(144, 224, 239, 0.55);
+  }
+
+  .material-principal > section::before,
+  .material-principal > article::before {
+    filter: blur(10px);
+    opacity: 0.55;
+  }
+
+  #sec-0 > h1,
+  .material-principal .hero-title,
+  .hero-title__line,
+  .material-principal .sec-title,
+  .material-principal h2.sec-title,
+  .material-principal h3,
+  .concept h3,
+  .exam-question h3,
+  .material-principal h4,
+  .worked-example h4,
+  .resumao h4 {
+    filter: none;
+    text-shadow: 0 0 10px rgba(0, 180, 216, 0.35);
+    background-position: 50% center;
+  }
 }
 `;
 }
