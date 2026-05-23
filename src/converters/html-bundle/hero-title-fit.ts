@@ -25,9 +25,15 @@ function fitHeroTitleLines() {
   }
 
   secondary.style.fontSize = best + "px";
-  const page = root.closest(".page");
-  const maxW = page ? page.clientWidth - 8 : targetW;
-  root.style.width = Math.ceil(Math.min(targetW, maxW)) + "px";
+  if (touchUi) {
+    root.style.width = "100%";
+    root.style.maxWidth = "100%";
+  } else {
+    const page = root.closest(".page");
+    const maxW = page ? page.clientWidth - 8 : targetW;
+    root.style.width = Math.ceil(Math.min(targetW, maxW)) + "px";
+    root.style.maxWidth = "";
+  }
   root.dataset.fitted = "1";
 }
 

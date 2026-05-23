@@ -27,8 +27,8 @@ export function getThemeCss(): string {
   --hh: 0px;
   --chrome-h: 0px;
   --page-w-screen: 80vw;
-  --page-w-touch: min(94vw, calc(100vw - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px) - 10px));
-  --page-w-tablet: min(92vw, calc(100vw - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px) - 14px));
+  --page-w-touch: 94%;
+  --page-w-tablet: 92%;
   --page-w-print: 186mm;
   --page-pad-x: 0;
   --page-pad-y: clamp(8px, 2vh, 10mm);
@@ -46,6 +46,10 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: calc(var(--chrome-h) + 16px + env(safe-area-inset-top, 0px));
   -webkit-text-size-adjust: 100%;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  overscroll-behavior-x: none;
 }
 
 a {
@@ -59,7 +63,11 @@ body {
   line-height: 1.55;
   background: var(--bg);
   color: var(--text);
-  overflow-x: clip;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: hidden;
+  overscroll-behavior-x: none;
   -webkit-font-smoothing: antialiased;
   padding: var(--chrome-h) max(4px, env(safe-area-inset-right, 0px)) 0
     max(4px, env(safe-area-inset-left, 0px));
@@ -250,10 +258,11 @@ body::after {
   isolation: isolate;
   width: var(--page-w-screen);
   max-width: var(--page-w-screen);
-  flex: 0 0 var(--page-w-screen);
+  flex: 0 0 auto;
   margin: 0 auto;
   padding: var(--page-pad-y) var(--page-pad-x) 14mm;
   box-sizing: border-box;
+  min-width: 0;
 }
 
 .document-body,
@@ -802,17 +811,40 @@ body::after {
   border-top: 1px solid var(--border);
 }
 
-/* Tablet / iPad: coluna mais larga, espaço entre blocos, aura contida */
+/* Tablet / iPad: coluna mais larga, sem rolagem horizontal */
 @media (max-width: 1100px) {
   :root {
     --page-w-screen: var(--page-w-tablet);
     --section-pad-x: 0.75rem;
   }
 
+  html,
+  body {
+    overflow-x: hidden;
+    overscroll-behavior-x: none;
+    touch-action: pan-y;
+  }
+
+  body {
+    display: block;
+  }
+
   .page {
     width: var(--page-w-screen);
-    max-width: var(--page-w-screen);
-    flex: 0 0 var(--page-w-screen);
+    max-width: min(
+      var(--page-w-screen),
+      calc(100% - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px) - 8px)
+    );
+    margin-left: auto;
+    margin-right: auto;
+    overflow-x: hidden;
+    touch-action: pan-y;
+  }
+
+  .document-body,
+  .material-principal {
+    overflow-x: hidden;
+    max-width: 100%;
   }
 
   .material-principal > section,
@@ -820,12 +852,27 @@ body::after {
     margin-bottom: 1.6rem;
     padding-top: 1rem;
     padding-bottom: 1rem;
+    overflow-x: hidden;
   }
 
   .material-principal > section::before,
   .material-principal > article::before {
-    inset: -10px -6px;
+    inset: 0;
     filter: blur(20px);
+  }
+
+  .table-wrap,
+  .worked-example,
+  .exam-question,
+  .concept {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  #sec-0 > h1,
+  .material-principal .hero-title {
+    width: 100%;
+    max-width: 100%;
   }
 
   .material-principal h3,
@@ -862,8 +909,10 @@ body::after {
 
   .page {
     width: var(--page-w-screen);
-    max-width: var(--page-w-screen);
-    flex: 0 0 var(--page-w-screen);
+    max-width: min(
+      var(--page-w-screen),
+      calc(100% - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px) - 6px)
+    );
     padding-top: 6px;
     padding-bottom: 10mm;
   }
@@ -872,13 +921,20 @@ body::after {
   .material-principal > article {
     margin-bottom: 1.1rem;
     padding: 0.7rem var(--section-pad-x) 0.85rem;
+    overflow-x: hidden;
   }
 
   .material-principal > section::before,
   .material-principal > article::before {
-    inset: -6px -4px;
+    inset: 0;
     filter: blur(14px);
     opacity: 0.75;
+  }
+
+  .hero-title,
+  .hero-title__line {
+    width: 100% !important;
+    max-width: 100%;
   }
 
   .material-principal h2,

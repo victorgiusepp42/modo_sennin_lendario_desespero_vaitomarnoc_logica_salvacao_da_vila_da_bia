@@ -62,5 +62,40 @@ export const INTERACTION_SCRIPT = `
   window.addEventListener("hashchange", function () {
     scrollToHash(location.hash, "smooth");
   });
+
+  /* Mobile: bloqueia arraste horizontal; só rolagem vertical */
+  if (window.matchMedia("(hover: none) and (pointer: coarse)").matches) {
+    var touchStartX = 0;
+    var touchStartY = 0;
+
+    document.addEventListener(
+      "touchstart",
+      function (e) {
+        if (e.touches.length !== 1) return;
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+      },
+      { passive: true }
+    );
+
+    document.addEventListener(
+      "touchmove",
+      function (e) {
+        if (e.touches.length !== 1) return;
+        var dx = Math.abs(e.touches[0].clientX - touchStartX);
+        var dy = Math.abs(e.touches[0].clientY - touchStartY);
+        if (dx > dy && dx > 8) {
+          e.preventDefault();
+        }
+      },
+      { passive: false }
+    );
+
+    window.addEventListener("scroll", function () {
+      if (window.scrollX !== 0) {
+        window.scrollTo(0, window.scrollY);
+      }
+    });
+  }
 })();
 `;
