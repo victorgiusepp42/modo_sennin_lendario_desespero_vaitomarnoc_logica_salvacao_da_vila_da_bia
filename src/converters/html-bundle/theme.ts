@@ -26,7 +26,7 @@ export function getThemeCss(): string {
   --font-mono: "Consolas", "Cascadia Code", monospace;
   --hh: 0px;
   --chrome-h: 0px;
-  --page-w-screen: 75vw;
+  --page-w-screen: 80vw;
   --page-w-print: 186mm;
   --page-pad-x: 0;
   --page-pad-y: clamp(8px, 2vh, 10mm);
