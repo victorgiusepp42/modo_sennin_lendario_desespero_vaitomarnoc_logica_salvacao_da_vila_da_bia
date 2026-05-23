@@ -965,14 +965,6 @@ body::after {
     font-size: 10.5pt;
   }
 
-  .hero-title__line--primary {
-    font-size: clamp(1.45rem, 7.5vw, 2rem);
-  }
-
-  .hero-title__line--secondary {
-    font-size: clamp(1rem, 5vw, 1.35rem);
-  }
-
   .ref,
   .practice-hint {
     font-size: 0.7rem;
@@ -1032,8 +1024,14 @@ body::after {
     font-size: 1.05rem;
   }
 
-  .hero-title__line {
+  .hero-title__line--primary {
+    white-space: nowrap;
+    font-size: clamp(1.35rem, 6.8vw, 1.85rem);
+  }
+
+  .hero-title__line--secondary {
     white-space: normal;
+    font-size: clamp(1rem, 5vw, 1.35rem);
   }
 
   .sec-0-lead {

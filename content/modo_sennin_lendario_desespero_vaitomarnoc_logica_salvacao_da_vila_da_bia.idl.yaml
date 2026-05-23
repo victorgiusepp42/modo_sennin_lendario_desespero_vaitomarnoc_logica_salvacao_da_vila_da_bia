@@ -3,7 +3,7 @@ $schema: ../schemas/material.idl.schema.json
 
 meta:
   id: modo_sennin_lendario_desespero_vaitomarnoc_logica_salvacao_da_vila_da_bia
-  title: Lógica para IA — Guia de Sobrevivência da Segunda Chance
+  title: LOGICA PARA IA — Guia de Sobrevivência da Segunda Chance
   version: "0.1.0"
   language: pt-BR
   description: Remediação para alunos da UFCAT/IMTec — segunda oportunidade na prova de Lógica.
@@ -15,7 +15,7 @@ structure:
       - type: hero
         mascot: true
         eyebrow: Bacharelado em Inteligência Artificial · UFCAT
-        title: Lógica para IA — Guia de Sobrevivência da Segunda Chance
+        title: LOGICA PARA IA — Guia de Sobrevivência da Segunda Chance
         subtitle: >-
           Se a primeira prova não rolou, tudo bem. Este material destrava os pontos
           que derrubam a maioria — passo a passo.
