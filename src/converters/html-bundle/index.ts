@@ -1,9 +1,11 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import type { IdlDocument } from "../../idl/types.js";
+import { renderAmbientChrome } from "./ambient-chrome.js";
 import { loadMascotDataUri } from "./assets.js";
 import { renderAssemblyParts } from "./assembly.js";
 import { HERO_TITLE_FIT_SCRIPT } from "./hero-title-fit.js";
+import { INTERACTION_SCRIPT } from "./interaction.js";
 import { getThemeCss } from "./theme.js";
 
 export type BuildResult = {
@@ -34,15 +36,6 @@ function injectMascot(html: string, mascotSrc: string | null): string {
     : html;
 }
 
-function renderChrome(): string {
-  return `<div class="orbs" aria-hidden="true">
-  <div class="orb orb--1"></div>
-  <div class="orb orb--2"></div>
-  <div class="orb orb--3"></div>
-  <div class="orb orb--4"></div>
-</div>`;
-}
-
 export function renderHtmlBundle(
   doc: IdlDocument,
   assemblyHtml: string,
@@ -53,9 +46,10 @@ export function renderHtmlBundle(
 <html lang="${escapeHtml(doc.meta.language)}">
 <head>
   <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
   <meta name="theme-color" content="#080808"/>
   <meta name="color-scheme" content="dark"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
   <title>${escapeHtml(doc.meta.title)}</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -63,12 +57,12 @@ export function renderHtmlBundle(
   <style>${getThemeCss()}</style>
 </head>
 <body>
-  ${renderChrome()}
+  ${renderAmbientChrome()}
   <div class="page">
     <main class="document-body">${bodyHtml}</main>
     <footer class="site-footer">UFCAT · IMTec · Lógica para Inteligência Artificial · Material de remediação</footer>
   </div>
-  <script>${HERO_TITLE_FIT_SCRIPT}</script>
+  <script>${HERO_TITLE_FIT_SCRIPT}${INTERACTION_SCRIPT}</script>
 </body>
 </html>`;
 }
