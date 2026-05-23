@@ -325,6 +325,27 @@ body::after {
   filter: drop-shadow(0 0 20px var(--ice-glow));
 }
 
+/* Gradiente + brilho no título inteiro (não só em .hi) */
+.hero-title__line,
+.material-principal .sec-title,
+.material-principal h2.sec-title,
+.material-principal h3,
+.concept h3,
+.exam-question h3,
+.material-principal h4,
+.worked-example h4,
+.resumao h4 {
+  background: linear-gradient(90deg, var(--ice-l), var(--neon) 45%, var(--med-l) 75%, var(--ice-l));
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: shine 8s linear infinite;
+  text-shadow: none;
+  filter: drop-shadow(0 0 14px var(--ice-glow));
+}
+
 .hero-title__line {
   display: block;
   width: 100%;
@@ -332,12 +353,13 @@ body::after {
   white-space: nowrap;
   text-align: center;
   letter-spacing: 0.04em;
-  background: linear-gradient(90deg, var(--ice-l), var(--neon) 45%, var(--med-l) 75%, var(--ice-l));
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: shine 8s linear infinite;
+}
+
+.material-principal .sec-title .hi {
+  background: none;
+  animation: none;
+  -webkit-text-fill-color: inherit;
+  color: inherit;
 }
 
 .hero-title__line--primary {
@@ -375,19 +397,8 @@ body::after {
   font-family: var(--font-display);
   font-size: clamp(1.45rem, 4vw, 2rem);
   letter-spacing: 0.04em;
-  color: #ffffff;
   line-height: 1.05;
   margin-bottom: 12px;
-  text-shadow: 0 2px 20px rgba(0, 180, 216, 0.35);
-}
-
-.sec-title .hi {
-  background: linear-gradient(90deg, var(--ice-l), var(--neon) 45%, var(--med-l) 75%, var(--ice-l));
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: shine 8s linear infinite;
 }
 
 @keyframes shine { to { background-position: 200% center; } }
@@ -468,9 +479,7 @@ body::after {
   font-size: clamp(1.65rem, 4vw, 2rem);
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: var(--ice-l);
   margin-bottom: 1rem;
-  text-shadow: 0 0 16px var(--ice-glow);
 }
 
 .material-principal h3,
@@ -481,9 +490,7 @@ body::after {
   font-weight: 700;
   letter-spacing: 0.07em;
   text-transform: uppercase;
-  color: #e8f8ff;
   margin: 1.5rem 0 0.75rem;
-  text-shadow: 0 0 12px rgba(0, 180, 216, 0.25);
 }
 
 .material-principal h4,
@@ -494,9 +501,7 @@ body::after {
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--med-l);
   margin: 1rem 0 0.5rem;
-  text-shadow: 0 0 10px var(--med-glow);
 }
 
 .material-principal p {
@@ -1068,8 +1073,14 @@ body::after {
   .material-principal > article::before,
   .material-principal > section::after,
   .material-principal > article::after,
-  .sec-title .hi,
   .hero-title__line,
+  .material-principal .sec-title,
+  .material-principal h3,
+  .concept h3,
+  .exam-question h3,
+  .material-principal h4,
+  .worked-example h4,
+  .resumao h4,
   #sec-0 > h1 { animation: none; }
 }
 `;
