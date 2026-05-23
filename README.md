@@ -37,6 +37,17 @@ flowchart LR
 2. Coloque o prompt completo em `prompts/inicial.md` (ou anexe na conversa).
 3. Definiremos juntos o **formato final** (ex.: HTML único offline, EPUB, etc.) e implementaremos o conversor em `src/converters/`.
 
+## Publicar no GitHub (Pages)
+
+1. Login: `gh auth login`
+2. Criar repositório e enviar:  
+   `gh repo create modo_sennin_lendario_desespero_vaitomarnoc_logica_salvacao_da_vila_da_bia --public --source=. --remote=origin --push`
+3. O workflow `.github/workflows/pages.yml` publica o HTML em **GitHub Pages** a cada push em `master`.
+
+URL esperada: `https://victorgiusepp42.github.io/modo_sennin_lendario_desespero_vaitomarnoc_logica_salvacao_da_vila_da_bia/`
+
+PDF local (não vai para o repo — arquivo grande): `npm run pdf` → `dist/*.pdf`
+
 ## Comandos
 
 ```bash
