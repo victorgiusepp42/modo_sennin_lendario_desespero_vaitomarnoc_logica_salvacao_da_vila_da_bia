@@ -27,6 +27,8 @@ export function getThemeCss(): string {
   --hh: 0px;
   --chrome-h: 0px;
   --page-w-screen: 80vw;
+  --page-w-touch: min(94vw, calc(100vw - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px) - 10px));
+  --page-w-tablet: min(92vw, calc(100vw - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px) - 14px));
   --page-w-print: 186mm;
   --page-pad-x: 0;
   --page-pad-y: clamp(8px, 2vh, 10mm);
@@ -270,26 +272,24 @@ body::after {
 
 .hero-mascot {
   flex: 0 0 auto;
-  width: 11rem;
-  height: 11rem;
+  width: 10.5rem;
+  height: 10.5rem;
   margin: 0;
   padding: 0;
   border: none;
   background: none;
   box-shadow: none;
   line-height: 0;
-  border-radius: 50%;
-  overflow: hidden;
-  isolation: isolate;
 }
 
 .hero-mascot__img {
   display: block;
   width: 100%;
-  height: 100%;
-  max-height: none;
-  object-fit: cover;
-  object-position: 32% 50%;
+  height: auto;
+  max-width: 10.5rem;
+  object-fit: contain;
+  object-position: center;
+  border-radius: 50%;
 }
 
 .sec-0-lead__text {
@@ -521,7 +521,10 @@ body::after {
 .material-principal ul, .material-principal ol { padding-left: 1.25rem; margin: 0.75rem 0; }
 .material-principal li { margin: 0.35rem 0; color: var(--text-2); }
 
-.concept { margin: 1.25rem 0; }
+.concept {
+  margin: 1.25rem 0;
+  display: flow-root;
+}
 
 .ref, .practice-hint {
   font-family: var(--font-cond);
@@ -539,6 +542,7 @@ body::after {
   border-radius: 10px;
   background: rgba(0, 180, 216, 0.04);
   page-break-inside: avoid;
+  display: flow-root;
 }
 
 .worked-example .setup {
@@ -563,13 +567,9 @@ body::after {
   margin-bottom: 0.25rem;
 }
 
+/* Rótulos "Passo N:" vêm do HTML; evita duplicar com contador CSS */
 .step::before {
-  content: "Passo " counter(step) ": ";
-  color: var(--ice-l);
-  font-family: var(--font-cond);
-  font-size: 0.85rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  content: none;
 }
 
 .thinking {
@@ -703,6 +703,16 @@ body::after {
   border-radius: 10px;
   background: rgba(8, 8, 8, 0.6);
   page-break-inside: avoid;
+  display: flow-root;
+}
+
+.concept + .concept,
+.concept + .worked-example,
+.worked-example + .concept,
+.worked-example + .worked-example,
+.worked-example + .exam-question,
+.exam-question + .concept {
+  margin-top: 1.65rem;
 }
 
 .statement, .what-its-testing, .strategy {
@@ -786,14 +796,178 @@ body::after {
   border-top: 1px solid var(--border);
 }
 
+/* Tablet / iPad: coluna mais larga, espaço entre blocos, aura contida */
+@media (max-width: 1100px) {
+  :root {
+    --page-w-screen: var(--page-w-tablet);
+    --section-pad-x: 0.75rem;
+  }
+
+  .page {
+    width: var(--page-w-screen);
+    max-width: var(--page-w-screen);
+    flex: 0 0 var(--page-w-screen);
+  }
+
+  .material-principal > section,
+  .material-principal > article {
+    margin-bottom: 1.6rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  .material-principal > section::before,
+  .material-principal > article::before {
+    inset: -10px -6px;
+    filter: blur(20px);
+  }
+
+  .material-principal h3,
+  .concept h3,
+  .exam-question h3 {
+    margin-top: 1.15rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .material-principal h4,
+  .worked-example h4,
+  .resumao h4 {
+    margin-top: 0.85rem;
+    position: relative;
+    z-index: 1;
+  }
+}
+
+/* Celular: >90% da tela, tipografia e tabelas proporcionais */
 @media (max-width: 520px) {
+  :root {
+    --page-w-screen: var(--page-w-touch);
+    --section-pad-x: 0.55rem;
+  }
+
   body {
     padding-bottom: env(safe-area-inset-bottom, 0px);
+    padding-left: max(3px, env(safe-area-inset-left, 0px));
+    padding-right: max(3px, env(safe-area-inset-right, 0px));
+    font-size: 11pt;
+    line-height: 1.5;
+  }
+
+  .page {
+    width: var(--page-w-screen);
+    max-width: var(--page-w-screen);
+    flex: 0 0 var(--page-w-screen);
+    padding-top: 6px;
+    padding-bottom: 10mm;
+  }
+
+  .material-principal > section,
+  .material-principal > article {
+    margin-bottom: 1.1rem;
+    padding: 0.7rem var(--section-pad-x) 0.85rem;
+  }
+
+  .material-principal > section::before,
+  .material-principal > article::before {
+    inset: -6px -4px;
+    filter: blur(14px);
+    opacity: 0.75;
+  }
+
+  .material-principal h2,
+  .material-principal .sec-title {
+    font-size: clamp(1.15rem, 5.2vw, 1.45rem);
+    margin-bottom: 0.65rem;
+    line-height: 1.12;
+  }
+
+  .material-principal h3,
+  .concept h3,
+  .exam-question h3 {
+    font-size: clamp(0.95rem, 4.2vw, 1.05rem);
+    margin: 1rem 0 0.55rem;
+    letter-spacing: 0.05em;
+    line-height: 1.2;
+  }
+
+  .material-principal h4,
+  .worked-example h4,
+  .resumao h4 {
+    font-size: clamp(0.82rem, 3.6vw, 0.92rem);
+    margin: 0.75rem 0 0.45rem;
+    line-height: 1.25;
+  }
+
+  .sec-0-lead__text p {
+    font-size: 10.5pt;
+  }
+
+  .hero-title__line--primary {
+    font-size: clamp(1.45rem, 7.5vw, 2rem);
+  }
+
+  .hero-title__line--secondary {
+    font-size: clamp(1rem, 5vw, 1.35rem);
+  }
+
+  .ref,
+  .practice-hint {
+    font-size: 0.7rem;
+    line-height: 1.35;
+  }
+
+  .worked-example {
+    padding: 0.75rem 0.65rem;
+    margin: 1rem 0;
+  }
+
+  .worked-example .setup {
+    font-size: 10pt;
+    line-height: 1.45;
+  }
+
+  .step {
+    font-size: 10pt;
+    line-height: 1.4;
+  }
+
+  .thinking {
+    font-size: 0.82rem;
+    padding: 0.4rem 0.5rem;
+  }
+
+  .material-principal table,
+  .truth-table,
+  .equivalence-chain,
+  .formal-proof {
+    font-size: clamp(7.5pt, 2.4vw, 8.5pt);
+  }
+
+  .material-principal table th,
+  .truth-table th,
+  .equivalence-chain th,
+  .formal-proof th {
+    font-size: clamp(6.5pt, 2vw, 7.5pt);
+    padding: 0.35rem 0.25rem;
+    letter-spacing: 0.03em;
+  }
+
+  .material-principal table td,
+  .truth-table td,
+  .equivalence-chain td,
+  .formal-proof td {
+    padding: 0.35rem 0.25rem;
   }
 
   .mapa-progressao a {
-    font-size: 12pt;
+    font-size: 11pt;
     min-height: 48px;
+    padding: 0.45rem 0.5rem;
+  }
+
+  .concept h3.mapa-progressao-label {
+    font-size: 1.05rem;
   }
 
   .hero-title__line {
@@ -803,15 +977,24 @@ body::after {
   .sec-0-lead {
     flex-direction: column;
     align-items: center;
+    gap: 0.75rem;
   }
 
-  .hero-mascot {
-    width: 9.5rem;
-    height: 9.5rem;
+  .hero-mascot,
+  .hero-mascot__img {
+    width: 8.5rem;
+    max-width: 8.5rem;
   }
 
   .sec-0-lead__text {
     text-align: center;
+  }
+
+  .concept + .concept,
+  .concept + .worked-example,
+  .worked-example + .concept,
+  .worked-example + .worked-example {
+    margin-top: 1.25rem;
   }
 }
 

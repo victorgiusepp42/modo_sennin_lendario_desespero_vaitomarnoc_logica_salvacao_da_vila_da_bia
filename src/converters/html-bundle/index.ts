@@ -25,7 +25,7 @@ const MASCOT_MARKER = "<!-- MASCOTE -->";
 
 function renderMascotImg(mascotSrc: string | null): string {
   if (!mascotSrc) return "";
-  return `<img class="hero-mascot__img" src="${mascotSrc}" alt="Mascote do curso BIA UFCAT — Inteligência Artificial" width="1024" height="1024" decoding="async" fetchpriority="high"/>`;
+  return `<img class="hero-mascot__img" src="${mascotSrc}" alt="Mascote do curso BIA UFCAT — Inteligência Artificial" width="564" height="561" decoding="async" fetchpriority="high"/>`;
 }
 
 function injectMascot(html: string, mascotSrc: string | null): string {

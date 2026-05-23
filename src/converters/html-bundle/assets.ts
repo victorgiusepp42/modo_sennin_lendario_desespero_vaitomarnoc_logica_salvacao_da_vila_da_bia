@@ -1,7 +1,7 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 
-const MASCOT_REL = path.join("content", "assets", "mascote-bia-ufcat-cutout.png");
+const MASCOT_REL = path.join("content", "assets", "mascote-bia-ufcat-circulo.png");
 
 export async function loadMascotDataUri(projectRoot: string): Promise<string | null> {
   const filePath = path.join(projectRoot, MASCOT_REL);
